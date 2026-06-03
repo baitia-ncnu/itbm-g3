@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台達電子 Delta Electronics | 企業分析 Business Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --delta-blue: #0056A8;
+  --delta-cyan: #00B4D8;
+  --delta-teal: #00897B;
+  --delta-green: #2ECC71;
+  --neon: #00F5FF;
+  --neon2: #39FF14;
+  --accent: #FF6B35;
+  --bg: #0A0E1A;
+  --bg2: #111827;
+  --bg3: #1A2235;
+  --surface: rgba(255,255,255,0.07);
+  --surface2: rgba(255,255,255,0.12);
+  --border: rgba(0,180,216,0.25);
+  --text: #F0F6FF;
+  --text2: #B0C4DE;
+  --text3: #7A90A8;
+  --glass: rgba(8,14,30,0.82);
+  --radius: 16px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+  --font-body: 'Outfit', 'Noto Sans TC', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --bg-img-opacity: 0.15;
+}
+[data-theme="light"] {
+  --bg: #EEF2FF;
+  --bg2: #E2E8FF;
+  --bg3: #D4DCFF;
+  --surface: rgba(0,86,168,0.07);
+  --surface2: rgba(0,86,168,0.13);
+  --border: rgba(0,86,168,0.22);
+  --text: #060E20;
+  --text2: #1E3050;
+  --text3: #4A5F78;
+  --glass: rgba(230,236,255,0.90);
+  --shadow: 0 8px 32px rgba(0,86,168,0.15);
+  --bg-img-opacity: 0.10;
+}
+[data-theme="light"] .vna-sub { fill: #334155 !important; }
+[data-theme="light"] .vnet-svg rect { stroke-opacity: 0.5; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background var(--transition),color var(--transition);position:relative}
+/* BG IMAGE via pseudo-element so opacity is independent of content */
+body::before{content:'';position:fixed;inset:0;z-index:0;background:url("https://drive.google.com/thumbnail?id=123VQzo1IV3P6SWH1SXgE4gvzACmaRkw2&sz=w1920") center/cover no-repeat;opacity:var(--bg-img-opacity,0.18);pointer-events:none;transition:opacity var(--transition)}
+/* Everything above the bg image */
+#navbar,#main,footer,.audio-toggle,#audio-panel,.mobile-menu{position:relative;z-index:1}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--delta-cyan);border-radius:3px}
+/* NAVBAR */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all var(--transition)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;max-width:1400px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.1rem;letter-spacing:-0.5px;color:var(--delta-cyan);text-decoration:none;white-space:nowrap}
+.nav-logo span{color:var(--text);font-weight:300}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;color:#fff;flex-shrink:0}
+.nav-tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;padding:0 16px;max-width:900px}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text2);transition:all var(--transition);white-space:nowrap;letter-spacing:0.3px}
+.nav-tab:hover,.nav-tab.active{background:var(--surface2);color:var(--delta-cyan)}
+.nav-tab.active{background:rgba(0,180,216,0.15);color:var(--delta-cyan)}
+.nav-controls{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.ctrl-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all var(--transition);flex-shrink:0}
+.ctrl-btn:hover{background:var(--surface2);border-color:var(--delta-cyan);color:var(--delta-cyan)}
+.lang-btn{padding:0 12px;width:auto;font-size:0.7rem;font-weight:700;letter-spacing:1px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all var(--transition)}
+/* MAIN */
+#main{padding-top:64px}
+/* SECTIONS */
+.section{display:none;min-height:calc(100vh - 64px);padding:40px 24px;max-width:1400px;margin:0 auto;animation:fadeIn 0.4s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* HERO */
+#hero-section{padding:0;max-width:none;background:var(--bg)}
+.hero-wrap{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 24px}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,180,216,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,180,216,0.05) 1px,transparent 1px);background-size:60px 60px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{to{background-position:60px 60px}}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(0,86,168,0.3) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px}
+.hero-tag{display:inline-block;padding:6px 18px;border:1px solid var(--delta-cyan);border-radius:100px;font-size:0.75rem;font-weight:600;letter-spacing:2px;color:var(--delta-cyan);margin-bottom:24px;background:rgba(0,180,216,0.08)}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:16px}
+.hero-title .line1{color:var(--text)}
+.hero-title .line2{background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:1.1rem;color:var(--text2);margin-bottom:40px;font-weight:300;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:2.2rem;font-weight:900;color:var(--delta-cyan);font-family:var(--font-mono);line-height:1}
+.hero-stat .lbl{font-size:0.75rem;color:var(--text3);margin-top:4px;letter-spacing:1px}
+.hero-cards{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-card{padding:12px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:0.8rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:8px}
+.hero-card:hover{background:rgba(0,180,216,0.1);border-color:var(--delta-cyan);color:var(--delta-cyan);transform:translateY(-2px)}
+.hero-card .ic{font-size:1rem}
+/* SECTION HEADERS */
+.sec-header{margin-bottom:40px}
+.sec-tag{display:inline-block;padding:4px 14px;background:rgba(0,180,216,0.1);border:1px solid var(--border);border-radius:100px;font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--delta-cyan);text-transform:uppercase;margin-bottom:12px}
+.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;line-height:1.1}
+.sec-title .accent{color:var(--delta-cyan)}
+.sec-desc{color:var(--text2);margin-top:12px;font-size:1rem;max-width:700px;line-height:1.7}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all var(--transition)}
+.card:hover{background:var(--surface2);border-color:var(--delta-cyan);transform:translateY(-2px);box-shadow:var(--shadow)}
+.card-grid{display:grid;gap:20px}
+.card-grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card-grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card-grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.flip-card{height:420px;perspective:1000px;cursor:pointer}
+.flip-inner{width:100%;height:100%;transition:transform 0.7s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;position:relative}
+.flip-card:hover .flip-inner,.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);overflow:hidden}
+.flip-front{background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:24px}
+.flip-back{background:var(--bg3);border:1px solid var(--border);transform:rotateY(180deg);display:flex;flex-direction:column;padding:0;overflow:hidden}
+.member-photo{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:12px 12px 0 0;position:absolute;top:0;left:0}
+.member-photo-placeholder{width:100%;height:260px;background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan));position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;font-size:4rem;color:rgba(255,255,255,0.3)}
+.member-info{position:relative;z-index:1;text-align:center;background:linear-gradient(0deg,var(--bg2) 60%,transparent);width:100%;padding:60px 16px 0}
+.member-role{font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--delta-cyan);text-transform:uppercase}
+.member-name{font-size:1.3rem;font-weight:800;margin-top:4px}
+.member-resp{font-size:0.8rem;color:var(--text2);margin-top:2px}
+.member-hint{font-size:0.65rem;color:var(--text3);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+.yt-wrap{width:100%;flex:1;background:#000;border-radius:0}
+.yt-wrap iframe{width:100%;height:100%;border:none;min-height:200px}
+.member-back-info{padding:16px;border-top:1px solid var(--border)}
+.member-back-info h4{font-size:1rem;font-weight:700;color:var(--delta-cyan)}
+.member-back-info p{font-size:0.8rem;color:var(--text2);margin-top:4px;line-height:1.5}
+/* EXEC SUMMARY */
+.exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.exec-highlight{background:linear-gradient(135deg,rgba(0,86,168,0.2),rgba(0,180,216,0.1));border:1px solid var(--delta-cyan);border-radius:var(--radius);padding:28px}
+.exec-highlight h3{font-size:1.5rem;font-weight:800;color:var(--delta-cyan);margin-bottom:12px}
+.exec-highlight p{color:var(--text2);line-height:1.8;font-size:0.95rem}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+.stat-box{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.stat-box .big{font-size:2rem;font-weight:900;color:var(--neon);font-family:var(--font-mono)}
+.stat-box .tiny{font-size:0.7rem;color:var(--text3);margin-top:4px;letter-spacing:0.5px}
+.pillar-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px}
+.pillar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:all var(--transition)}
+.pillar:hover{border-color:var(--delta-cyan);background:var(--surface2)}
+.pillar-icon{font-size:2rem;margin-bottom:8px}
+.pillar-title{font-weight:700;font-size:0.9rem;color:var(--delta-cyan)}
+.pillar-desc{font-size:0.75rem;color:var(--text2);margin-top:4px;line-height:1.5}
+/* PESTEL */
+.pestel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.pestel-card{background:var(--surface);border-left:4px solid;border-radius:var(--radius);padding:24px;transition:all var(--transition);cursor:pointer}
+.pestel-card:hover{background:var(--surface2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.pestel-card.P{border-color:#4A90D9}
+.pestel-card.E1{border-color:#50C878}
+.pestel-card.S{border-color:#FF8C42}
+.pestel-card.T{border-color:#9B59B6}
+.pestel-card.E2{border-color:#2ECC71}
+.pestel-card.L{border-color:#E74C3C}
+.pestel-letter{font-size:2.5rem;font-weight:900;opacity:0.2;font-family:var(--font-mono);line-height:1;margin-bottom:8px}
+.pestel-name{font-size:1rem;font-weight:700;margin-bottom:12px}
+.pestel-items{display:flex;flex-direction:column;gap:8px}
+.pestel-item{display:flex;gap:8px;align-items:flex-start}
+.pestel-item-tag{font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:100px;flex-shrink:0;margin-top:2px}
+.tag-opp{background:rgba(46,204,113,0.2);color:#2ECC71}
+.tag-risk{background:rgba(231,76,60,0.2);color:#E74C3C}
+.pestel-item p{font-size:0.8rem;color:var(--text2);line-height:1.5}
+/* VALUE CHAIN */
+.vca-wrap{display:flex;flex-direction:column;gap:16px}
+.vca-primary{display:flex;gap:8px;align-items:stretch}
+.vca-act{flex:1;background:linear-gradient(135deg,rgba(0,86,168,0.3),rgba(0,180,216,0.1));border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;position:relative;transition:all var(--transition);cursor:pointer}
+.vca-act:hover{border-color:var(--delta-cyan);transform:translateY(-2px)}
+.vca-act::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--delta-cyan);font-size:1.2rem;z-index:1}
+.vca-act:last-child::after{display:none}
+.vca-act-icon{font-size:1.5rem;margin-bottom:6px}
+.vca-act-title{font-size:0.8rem;font-weight:700;color:var(--delta-cyan);margin-bottom:6px}
+.vca-act-desc{font-size:0.72rem;color:var(--text2);line-height:1.4}
+.vca-support{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.vca-sup{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;transition:all var(--transition);cursor:pointer}
+.vca-sup:hover{border-color:var(--neon2);background:var(--surface2)}
+.vca-sup-title{font-size:0.8rem;font-weight:700;color:var(--neon2);margin-bottom:4px}
+.vca-sup-desc{font-size:0.7rem;color:var(--text2);line-height:1.4}
+.vca-label{font-size:0.75rem;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+/* VALUE NET — fully SVG-based, responsive */
+.vnet-wrap{display:flex;justify-content:center;padding:20px 0}
+.vnet-svg{width:100%;max-width:620px;height:auto;overflow:visible}
+.vnet-node-icon{font-size:1.3rem;margin-bottom:4px}
+.vnet-node-title{font-size:0.7rem;font-weight:700;color:var(--delta-cyan)}
+.vnet-node-desc{font-size:0.62rem;color:var(--text2);margin-top:2px;line-height:1.3}
+/* INDUSTRY */
+.supply-chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:24px 0}
+.sc-node{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;text-align:center;flex:1;min-width:140px;max-width:200px;transition:all var(--transition);cursor:pointer}
+.sc-node:hover{border-color:var(--delta-cyan);background:var(--surface2)}
+.sc-node.highlight{border-color:var(--delta-cyan);background:rgba(0,180,216,0.1)}
+.sc-arrow{color:var(--delta-cyan);font-size:1.5rem;flex-shrink:0}
+.sc-node-icon{font-size:1.4rem;margin-bottom:4px}
+.sc-node-name{font-size:0.8rem;font-weight:700;color:var(--text)}
+.sc-node-desc{font-size:0.7rem;color:var(--text2);margin-top:3px}
+.lifecycle-bar{display:flex;height:80px;border-radius:12px;overflow:hidden;margin:24px 0;background:var(--bg3)}
+.lc-phase{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.8);padding:8px;text-align:center;position:relative;transition:all var(--transition);cursor:pointer}
+.lc-phase:hover{filter:brightness(1.2)}
+.lc-phase.intro{background:rgba(74,144,217,0.6)}
+.lc-phase.growth{background:rgba(46,204,113,0.7)}
+.lc-phase.maturity{background:rgba(0,180,216,0.8);border:2px solid var(--neon)}
+.lc-phase.decline{background:rgba(100,116,139,0.5)}
+.lc-marker{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:0.65rem;color:var(--delta-cyan);white-space:nowrap}
+/* FIRM ANALYSIS */
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:var(--radius);overflow:hidden;margin:24px 0}
+.swot-cell{padding:24px;min-height:160px}
+.swot-cell.s{background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.2)}
+.swot-cell.w{background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.2)}
+.swot-cell.o{background:rgba(0,180,216,0.12);border:1px solid rgba(0,180,216,0.2)}
+.swot-cell.t{background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.2)}
+.swot-label{font-size:0.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.swot-cell.s .swot-label{color:#2ECC71}
+.swot-cell.w .swot-label{color:#E74C3C}
+.swot-cell.o .swot-label{color:var(--delta-cyan)}
+.swot-cell.t .swot-label{color:var(--accent)}
+.swot-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.swot-list li{font-size:0.8rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.4}
+.swot-list li::before{content:'▸';position:absolute;left:0;color:inherit}
+/* CAREER */
+.career-timeline{display:flex;flex-direction:column;gap:24px;position:relative}
+.career-timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--delta-cyan),transparent)}
+.career-step{display:flex;gap:20px;align-items:flex-start}
+.cs-dot{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 0 15px rgba(0,180,216,0.4);position:relative;z-index:1}
+.cs-content{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;flex:1;transition:all var(--transition)}
+.cs-content:hover{border-color:var(--delta-cyan);background:var(--surface2)}
+.cs-phase{font-size:0.65rem;font-weight:700;letter-spacing:2px;color:var(--delta-cyan);text-transform:uppercase;margin-bottom:4px}
+.cs-title{font-size:1rem;font-weight:700;margin-bottom:8px}
+.cs-desc{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.cs-skills{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.skill-tag{padding:3px 10px;background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.3);border-radius:100px;font-size:0.68rem;font-weight:600;color:var(--delta-cyan)}
+/* INTERACTIVE LAB */
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.lab-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.lab-title{font-size:1rem;font-weight:700;color:var(--delta-cyan);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.lab-controls{display:flex;flex-direction:column;gap:12px}
+.lab-slider-wrap{display:flex;flex-direction:column;gap:6px}
+.lab-slider-wrap label{font-size:0.78rem;color:var(--text2);display:flex;justify-content:space-between}
+.lab-slider-wrap label span{color:var(--delta-cyan);font-weight:700;font-family:var(--font-mono)}
+input[type=range]{width:100%;accent-color:var(--delta-cyan);cursor:pointer}
+.lab-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.lab-btn{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all var(--transition)}
+.lab-btn:hover,.lab-btn.active{background:rgba(0,180,216,0.15);border-color:var(--delta-cyan);color:var(--delta-cyan)}
+/* GLOSSARY */
+.glossary-search{width:100%;padding:12px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:var(--font-body);margin-bottom:20px;outline:none;transition:all var(--transition)}
+.glossary-search:focus{border-color:var(--delta-cyan);background:var(--surface2)}
+.glossary-list{display:flex;flex-direction:column;gap:8px}
+.glossary-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all var(--transition)}
+.glossary-item:hover{border-color:var(--border)}
+.glossary-term{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;font-size:0.9rem}
+.glossary-term:hover{background:var(--surface2)}
+.glossary-term .letter{width:32px;height:32px;background:rgba(0,180,216,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--delta-cyan);font-size:0.85rem;flex-shrink:0;margin-right:12px}
+.glossary-def{padding:0 18px;max-height:0;overflow:hidden;transition:all 0.35s ease;color:var(--text2);font-size:0.83rem;line-height:1.7}
+.glossary-def.open{max-height:200px;padding:0 18px 14px}
+.glossary-chevron{transition:transform var(--transition);color:var(--text3)}
+.glossary-item.open .glossary-chevron{transform:rotate(180deg)}
+/* LEARNING JOURNEY */
+.journey-path{display:flex;flex-direction:column;gap:0}
+.journey-stop{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:32px}
+.journey-stop:last-child{padding-bottom:0}
+.journey-stop::before{content:'';position:absolute;left:19px;top:48px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--delta-cyan)20%,transparent);z-index:0}
+.journey-stop:last-child::before{display:none}
+.j-num{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0;z-index:1;box-shadow:0 0 12px rgba(0,180,216,0.4)}
+.j-content{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;transition:all var(--transition)}
+.j-content:hover{border-color:var(--delta-cyan);background:var(--surface2)}
+.j-title{font-weight:700;font-size:1rem;margin-bottom:6px;color:var(--delta-cyan)}
+.j-desc{font-size:0.83rem;color:var(--text2);line-height:1.6}
+/* DATA SOURCES */
+.source-list{display:flex;flex-direction:column;gap:12px}
+.source-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;transition:all var(--transition);cursor:pointer}
+.source-item:hover{border-color:var(--delta-cyan);background:var(--surface2);transform:translateX(4px)}
+.source-icon{width:40px;height:40px;border-radius:10px;background:rgba(0,180,216,0.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;color:var(--delta-cyan)}
+.source-info h4{font-size:0.9rem;font-weight:700;margin-bottom:3px}
+.source-info p{font-size:0.78rem;color:var(--text2);line-height:1.5}
+.source-info a{color:var(--delta-cyan);font-size:0.72rem;text-decoration:none;font-family:var(--font-mono)}
+/* CONCLUSION */
+.conclusion-hero{background:linear-gradient(135deg,rgba(0,86,168,0.25),rgba(0,180,216,0.15));border:1px solid var(--border);border-radius:var(--radius);padding:36px;margin-bottom:28px;text-align:center}
+.conclusion-hero h2{font-size:2rem;font-weight:900;letter-spacing:-1px;color:var(--delta-cyan);margin-bottom:12px}
+.conclusion-hero p{color:var(--text2);line-height:1.8;max-width:700px;margin:0 auto;font-size:0.95rem}
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:24px}
+.rec-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all var(--transition)}
+.rec-card:hover{border-color:var(--delta-cyan);background:var(--surface2);transform:translateY(-2px)}
+.rec-icon{font-size:1.8rem;margin-bottom:10px}
+.rec-title{font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:6px}
+.rec-desc{font-size:0.78rem;color:var(--text2);line-height:1.5}
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24px;margin-top:60px}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-left{display:flex;flex-direction:column;gap:6px}
+.footer-logo{font-weight:800;font-size:1.1rem;color:var(--delta-cyan)}
+.footer-credit{font-size:0.82rem;color:var(--text2)}
+.footer-instructor{font-size:0.85rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
+.footer-center{text-align:center;font-size:0.75rem;color:var(--text3)}
+.footer-right{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.footer-btn{padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:0.78rem;cursor:pointer;transition:all var(--transition);font-family:var(--font-body)}
+.footer-btn:hover{border-color:var(--delta-cyan);color:var(--delta-cyan)}
+.social-icons{display:flex;gap:8px}
+.soc-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--text2);cursor:pointer;transition:all var(--transition);font-size:0.9rem}
+.soc-btn:hover{border-color:var(--delta-cyan);color:var(--delta-cyan)}
+/* AUDIO PANEL */
+#audio-panel{position:fixed;bottom:24px;right:24px;z-index:999;background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;min-width:260px;box-shadow:var(--shadow);transition:all var(--transition);transform:translateY(100px);opacity:0;pointer-events:none}
+#audio-panel.open{transform:translateY(0);opacity:1;pointer-events:all}
+.audio-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.audio-title{font-size:0.8rem;font-weight:700;color:var(--delta-cyan);display:flex;align-items:center;gap:6px}
+.audio-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1}
+.audio-text{font-size:0.75rem;color:var(--text2);margin-bottom:12px;max-height:60px;overflow:hidden;line-height:1.5}
+.audio-controls{display:flex;gap:8px}
+.audio-btn{flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.78rem;cursor:pointer;transition:all var(--transition);font-weight:600;font-family:var(--font-body)}
+.audio-btn:hover{border-color:var(--delta-cyan);color:var(--delta-cyan)}
+.audio-btn.playing{background:rgba(0,180,216,0.15);border-color:var(--delta-cyan);color:var(--delta-cyan)}
+.audio-toggle{position:fixed;bottom:24px;right:24px;z-index:1000;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--delta-blue),var(--delta-cyan));border:none;cursor:pointer;font-size:1.3rem;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,180,216,0.4);transition:all var(--transition)}
+.audio-toggle.panel-open{opacity:0;pointer-events:none}
+.audio-toggle:hover{transform:scale(1.1)}
+/* MOBILE MENU */
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:999;padding:16px;flex-direction:column;gap:4px;max-height:80vh;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-tab{padding:10px 16px;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;color:var(--text2);transition:all var(--transition)}
+.mobile-tab:hover,.mobile-tab.active{background:var(--surface2);color:var(--delta-cyan)}
+/* PROGRESS BAR */
+.progress-bar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--delta-blue),var(--delta-cyan));border-radius:3px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+/* CHART CONTAINERS */
+.chart-wrap{position:relative;height:280px;margin:20px 0}
+.chart-wrap canvas{max-height:280px}
+/* OPPORTUNITY MATRIX */
+.opp-matrix{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;margin:20px 0;border-radius:12px;overflow:hidden}
+.opp-cell{padding:20px;min-height:120px}
+.opp-cell.hh{background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3)}
+.opp-cell.hl{background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.2)}
+.opp-cell.lh{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.2)}
+.opp-cell.ll{background:var(--surface);border:1px solid var(--border)}
+.opp-cell-label{font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;color:var(--text3)}
+.opp-cell-title{font-size:0.9rem;font-weight:700;margin-bottom:6px}
+.opp-cell-desc{font-size:0.75rem;color:var(--text2);line-height:1.4}
+/* COUNTER ANIMATION */
+.counter{font-variant-numeric:tabular-nums}
+/* TOOLTIP */
+.tooltip-wrap{position:relative;display:inline-block}
+.tooltip-box{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:0.75rem;color:var(--text2);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity var(--transition);z-index:10;max-width:200px;white-space:normal;text-align:center}
+.tooltip-wrap:hover .tooltip-box{opacity:1}
+/* HIGHLIGHTED NAR */
+.narrating{outline:2px solid var(--delta-cyan);outline-offset:4px;border-radius:4px;animation:narPulse 1.5s ease-in-out infinite}
+@keyframes narPulse{0%,100%{outline-color:var(--delta-cyan)}50%{outline-color:var(--neon)}}
+
+/* AI FEATURES */
+.ai-box { background: linear-gradient(135deg, rgba(0,245,255,0.05), rgba(0,180,216,0.1)); border: 1px solid var(--neon); border-radius: 12px; padding: 24px; margin-top: 16px; margin-bottom: 24px; box-shadow: inset 0 0 20px rgba(0,245,255,0.05); }
+.ai-input { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 0.9rem; margin-bottom: 12px; transition: border-color var(--transition); }
+.ai-input:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 8px rgba(0,245,255,0.2); }
+.ai-btn { background: linear-gradient(90deg, var(--delta-blue), var(--delta-cyan)); color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 0.9rem; }
+.ai-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,180,216,0.4); }
+.ai-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+.ai-output { margin-top: 20px; font-size: 0.9rem; color: var(--text2); line-height: 1.7; background: var(--surface2); padding: 20px; border-radius: 8px; border-left: 3px solid var(--neon); }
+.ai-output h4 { color: var(--neon); margin-bottom: 12px; font-size: 1rem; }
+.ai-output ul { padding-left: 20px; margin-bottom: 12px; }
+.ai-output li { margin-bottom: 6px; }
+.ai-output p { margin-bottom: 12px; }
+.loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-tabs{display:none}
+  .hamburger{display:flex}
+  .exec-grid{grid-template-columns:1fr}
+  .lab-grid{grid-template-columns:1fr}
+  .swot-grid{grid-template-columns:1fr}
+  .vca-primary{flex-direction:column}
+  .vca-act::after{content:'↓';right:50%;bottom:-12px;top:auto;transform:translateX(50%)}
+  .vca-support{grid-template-columns:1fr 1fr}
+  .vnet-diagram{width:320px;height:320px}
+  .vnet-node{width:80px;height:65px}
+  .vnet-center{width:90px;height:90px;font-size:0.7rem}
+}
+@media(max-width:600px){
+  .section{padding:24px 16px}
+  .hero-stats{gap:20px}
+  .team-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .opp-matrix{grid-template-columns:1fr}
+  .vnet-diagram{width:280px;height:520px}
+  .vnet-node.top{top:10px;left:50%;transform:translateX(-50%)}
+  .vnet-node.bottom{bottom:10px;left:50%;transform:translateX(-50%)}
+  .vnet-node.left{left:10px;top:auto;top:35%;transform:none}
+  .vnet-node.right{right:10px;top:auto;top:55%;transform:none}
+}
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav id="navbar" role="navigation" aria-label="Main Navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#" onclick="showSection('hero');return false">
+      <div class="logo-mark" style="background:none;padding:0;overflow:hidden"><img src="https://drive.google.com/thumbnail?id=16LUSxD06y6euJHEsiqHgzUsNGKlU_hjz&sz=w72" alt="Delta Logo" style="width:36px;height:36px;object-fit:contain;border-radius:8px"></div>
+      <div><span>Delta</span> Electronics<br><span style="font-size:0.65rem;color:var(--text3);font-weight:300">台達電子分析</span></div>
+    </a>
+    <div class="nav-tabs" role="tablist">
+      <button class="nav-tab active" onclick="showSection('hero')" data-zh="首頁" data-en="Home">首頁</button>
+      <button class="nav-tab" onclick="showSection('team')" data-zh="團隊" data-en="Team">團隊</button>
+      <button class="nav-tab" onclick="showSection('exec')" data-zh="執行摘要" data-en="Executive Summary">執行摘要</button>
+      <button class="nav-tab" onclick="showSection('pestel')" data-zh="PESTEL" data-en="PESTEL">PESTEL</button>
+      <button class="nav-tab" onclick="showSection('opportunity')" data-zh="商機分析" data-en="Opportunity">商機分析</button>
+      <button class="nav-tab" onclick="showSection('industry')" data-zh="產業分析" data-en="Industry">產業分析</button>
+      <button class="nav-tab" onclick="showSection('firm')" data-zh="企業分析" data-en="Firm">企業分析</button>
+      <button class="nav-tab" onclick="showSection('vca')" data-zh="價值鏈" data-en="VCA">價值鏈</button>
+      <button class="nav-tab" onclick="showSection('vna')" data-zh="價值網路" data-en="VNA">價值網路</button>
+      <button class="nav-tab" onclick="showSection('career')" data-zh="職涯藍圖" data-en="Career">職涯藍圖</button>
+      <button class="nav-tab" onclick="showSection('lab')" data-zh="互動實驗室" data-en="Lab">互動實驗室</button>
+      <button class="nav-tab" onclick="showSection('journey')" data-zh="學習旅程" data-en="Journey">學習旅程</button>
+      <button class="nav-tab" onclick="showSection('sources')" data-zh="資料來源" data-en="Sources">資料來源</button>
+      <button class="nav-tab" onclick="showSection('glossary')" data-zh="詞彙表" data-en="Glossary">詞彙表</button>
+      <button class="nav-tab" onclick="showSection('conclusion')" data-zh="結論" data-en="Conclusion">結論</button>
+    </div>
+    <div class="nav-controls">
+      <button class="ctrl-btn lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Toggle Language" title="Switch Language">EN</button>
+      <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">🌙</button>
+      <div style="display:flex;align-items:center;gap:5px;padding:0 4px" title="Background image opacity">
+        <span style="font-size:0.65rem;color:var(--text3);user-select:none">🖼</span>
+        <input type="range" id="bgOpacitySlider" min="0" max="40" value="15" step="1"
+          oninput="setBgOpacity(this.value)"
+          style="width:54px;height:4px;cursor:pointer;accent-color:var(--delta-cyan);background:var(--surface2);border-radius:2px;outline:none;border:none;padding:0"
+          aria-label="Background opacity">
+      </div>
+      <button class="ctrl-btn" onclick="toggleAudio()" aria-label="Audio Guide" title="Audio Guide">🔊</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-tab active" onclick="showSection('hero');toggleMenu()" data-zh="🏠 首頁" data-en="🏠 Home">🏠 首頁</div>
+  <div class="mobile-tab" onclick="showSection('team');toggleMenu()" data-zh="👥 團隊介紹" data-en="👥 Team Members">👥 團隊介紹</div>
+  <div class="mobile-tab" onclick="showSection('exec');toggleMenu()" data-zh="📋 執行摘要" data-en="📋 Executive Summary">📋 執行摘要</div>
+  <div class="mobile-tab" onclick="showSection('pestel');toggleMenu()" data-zh="🔍 PESTEL分析" data-en="🔍 PESTEL Analysis">🔍 PESTEL分析</div>
+  <div class="mobile-tab" onclick="showSection('opportunity');toggleMenu()" data-zh="💡 商機分析" data-en="💡 Business Opportunity">💡 商機分析</div>
+  <div class="mobile-tab" onclick="showSection('industry');toggleMenu()" data-zh="🏭 產業分析" data-en="🏭 Industry Analysis">🏭 產業分析</div>
+  <div class="mobile-tab" onclick="showSection('firm');toggleMenu()" data-zh="📊 企業分析" data-en="📊 Firm Analysis">📊 企業分析</div>
+  <div class="mobile-tab" onclick="showSection('vca');toggleMenu()" data-zh="🔗 價值鏈分析" data-en="🔗 Value Chain">🔗 價值鏈分析</div>
+  <div class="mobile-tab" onclick="showSection('vna');toggleMenu()" data-zh="🕸️ 價值網路" data-en="🕸️ Value Net">🕸️ 價值網路</div>
+  <div class="mobile-tab" onclick="showSection('career');toggleMenu()" data-zh="🎯 職涯藍圖" data-en="🎯 Career Blueprint">🎯 職涯藍圖</div>
+  <div class="mobile-tab" onclick="showSection('lab');toggleMenu()" data-zh="🧪 互動實驗室" data-en="🧪 Interactive Lab">🧪 互動實驗室</div>
+  <div class="mobile-tab" onclick="showSection('sources');toggleMenu()" data-zh="📚 資料來源" data-en="📚 Data Sources">📚 資料來源</div>
+  <div class="mobile-tab" onclick="showSection('journey');toggleMenu()" data-zh="🗺️ 學習旅程" data-en="🗺️ Learning Journey">🗺️ 學習旅程</div>
+  <div class="mobile-tab" onclick="showSection('glossary');toggleMenu()" data-zh="📖 詞彙表" data-en="📖 Glossary">📖 詞彙表</div>
+  <div class="mobile-tab" onclick="showSection('conclusion');toggleMenu()" data-zh="🎯 結論" data-en="🎯 Conclusion">🎯 結論</div>
+</div>
+
+<!-- AUDIO PANEL -->
+<button class="audio-toggle" id="audioToggle" onclick="toggleAudio()" aria-label="Audio Guide">🔊</button>
+<div id="audio-panel" role="region" aria-label="Audio Guide">
+  <div class="audio-header">
+    <div class="audio-title">🔊 <span data-zh="語音導覽" data-en="Audio Guide">語音導覽</span></div>
+    <button class="audio-close" onclick="toggleAudio()">✕</button>
+  </div>
+  <div class="audio-text" id="audioText" data-zh="選擇一個區段來播放語音導覽。" data-en="Select a section to play audio narration.">選擇一個區段來播放語音導覽。</div>
+  <div class="audio-controls">
+    <button class="audio-btn" id="playBtn" onclick="audioPlay()" data-zh="▶ 播放" data-en="▶ Play">▶ 播放</button>
+    <button class="audio-btn" id="pauseBtn" onclick="audioPause()" data-zh="⏸ 暫停" data-en="⏸ Pause">⏸ 暫停</button>
+    <button class="audio-btn" onclick="audioStop()" data-zh="⏹ 停止" data-en="⏹ Stop">⏹ 停止</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HOME SECTION -->
+<div id="section-hero" class="section active">
+  <div class="hero-wrap">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-tag" data-zh="企業策略分析 2026" data-en="Corporate Strategy Analysis 2026">企業策略分析 2026</div>
+      <div class="hero-title">
+        <div class="line1" data-zh="台達電子" data-en="Delta Electronics">台達電子</div>
+        <div class="line2" data-zh="智慧能源的未來領導者" data-en="Future Leader in Smart Energy">智慧能源的未來領導者</div>
+      </div>
+      <div class="hero-subtitle" data-zh="深度探索台達電子的企業策略、永續發展、技術創新與全球競爭力" data-en="Deep dive into Delta Electronics' corporate strategy, sustainability, technological innovation and global competitiveness">深度探索台達電子的企業策略、永續發展、技術創新與全球競爭力</div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num counter" data-target="554">0</div><div class="lbl" data-zh="億美元營收" data-en="Billion USD Revenue">億美元營收</div></div>
+        <div class="hero-stat"><div class="num counter" data-target="80000">0</div><div class="lbl" data-zh="全球員工" data-en="Global Employees">全球員工</div></div>
+        <div class="hero-stat"><div class="num counter" data-target="200">0</div><div class="lbl" data-zh="個國家市場" data-en="Country Markets">個國家市場</div></div>
+        <div class="hero-stat"><div class="num counter" data-target="60">0</div><div class="lbl" data-zh="RE100達成率%" data-en="RE100 Achievement%">RE100達成率%</div></div>
+      </div>
+      <div class="hero-cards">
+        <div class="hero-card" onclick="showSection('exec')"><span class="ic">📋</span><span data-zh="執行摘要" data-en="Executive Summary">執行摘要</span></div>
+        <div class="hero-card" onclick="showSection('pestel')"><span class="ic">🔍</span><span data-zh="總體環境分析" data-en="Macro Analysis">總體環境分析</span></div>
+        <div class="hero-card" onclick="showSection('opportunity')"><span class="ic">💡</span><span data-zh="商機分析" data-en="Business Opportunity">商機分析</span></div>
+        <div class="hero-card" onclick="showSection('industry')"><span class="ic">🏭</span><span data-zh="產業分析" data-en="Industry Analysis">產業分析</span></div>
+        <div class="hero-card" onclick="showSection('firm')"><span class="ic">📊</span><span data-zh="企業財務表現" data-en="Firm Performance">企業財務表現</span></div>
+        <div class="hero-card" onclick="showSection('vca')"><span class="ic">🔗</span><span data-zh="價值鏈分析" data-en="Value Chain">價值鏈分析</span></div>
+        <div class="hero-card" onclick="showSection('vna')"><span class="ic">🕸️</span><span data-zh="價值網分析" data-en="Value Net Analysis">價值網分析</span></div>
+        <div class="hero-card" onclick="showSection('career')"><span class="ic">🎯</span><span data-zh="職涯策略" data-en="Career Strategy">職涯策略</span></div>
+        <div class="hero-card" onclick="showSection('lab')"><span class="ic">🧪</span><span data-zh="互動實驗室" data-en="Interactive Lab">互動實驗室</span></div>
+        <div class="hero-card" onclick="showSection('sources')"><span class="ic">📚</span><span data-zh="資料來源" data-en="Data Sources">資料來源</span></div>
+        <div class="hero-card" onclick="showSection('journey')"><span class="ic">🗺️</span><span data-zh="學習旅程" data-en="Learning Journey">學習旅程</span></div>
+        <div class="hero-card" onclick="showSection('glossary')"><span class="ic">📖</span><span data-zh="詞彙表" data-en="Glossary">詞彙表</span></div>
+        <div class="hero-card" onclick="showSection('conclusion')"><span class="ic">🎯</span><span data-zh="結論" data-en="Conclusion">結論</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM SECTION -->
+<div id="section-team" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="認識我們" data-en="MEET US">認識我們</div>
+    <h1 class="sec-title" data-zh="團隊成員介紹" data-en="Team <span class='accent'>Members</span>">團隊成員介紹</h1>
+    <p class="sec-desc" data-zh="我們是一群來自不同背景的研究者，共同深入分析台達電子的企業策略與競爭優勢。" data-en="We are a group of researchers from diverse backgrounds, collaborating to analyze Delta Electronics' corporate strategy and competitive advantages.">我們是一群來自不同背景的研究者，共同深入分析台達電子的企業策略與競爭優勢。</p>
+  </div>
+  <div class="team-grid" id="teamGrid"></div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div id="section-exec" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+    <h1 class="sec-title"><span data-zh="執行摘要" data-en="Executive"></span> <span class="accent" data-zh="" data-en="Summary"></span></h1>
+    <p class="sec-desc" data-zh="台達電子工業股份有限公司——全球電源管理與散熱管理解決方案的領導者。" data-en="Delta Electronics, Inc. — Global leader in power management and thermal management solutions.">台達電子工業股份有限公司——全球電源管理與散熱管理解決方案的領導者。</p>
+  </div>
+  <div class="exec-grid">
+    <div class="exec-highlight">
+      <h3 data-zh="公司概覽" data-en="Company Overview">公司概覽</h3>
+      <p data-zh="台達電子成立於1971年，總部位於台灣新北市，是全球領先的電源管理、工業自動化及基礎設施解決方案提供商。以「環保節能愛地球」為企業使命，台達積極投入節能技術研發，推動全球能源轉型。" data-en="Founded in 1971 and headquartered in New Taipei City, Taiwan, Delta Electronics is a global leader in power management, industrial automation, and infrastructure solutions. With the mission 'To provide innovative, clean and energy-efficient solutions for a better tomorrow,' Delta actively invests in energy-saving technology R&D to drive global energy transition.">台達電子成立於1971年，總部位於台灣新北市，是全球領先的電源管理、工業自動化及基礎設施解決方案提供商。以「環保節能愛地球」為企業使命，台達積極投入節能技術研發，推動全球能源轉型。</p>
+    </div>
+    <div class="exec-highlight">
+      <h3 data-zh="全球市場地位" data-en="Global Market Position">全球市場地位</h3>
+      <p data-zh="台達電子在全球超過200個市場提供服務，擁有逾8萬名員工。在伺服器電源、工業驅動器、電動車充電基礎設施及樓宇自動化系統等領域，均佔有全球領導地位。" data-en="Delta Electronics serves over 200 markets globally with more than 80,000 employees. The company holds global leadership positions in server power supplies, industrial drives, EV charging infrastructure, and building automation systems.">台達電子在全球超過200個市場提供服務，擁有逾8萬名員工。在伺服器電源、工業驅動器、電動車充電基礎設施及樓宇自動化系統等領域，均佔有全球領導地位。</p>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-box"><div class="big counter" data-target="554">0</div><div class="tiny" data-zh="億元新台幣年收入" data-en="Billion NTD Annual Revenue">億元新台幣年收入</div></div>
+    <div class="stat-box"><div class="big counter" data-target="28">0</div><div class="tiny" data-zh="% 研發佔比" data-en="% R&D Investment">% 研發佔比</div></div>
+    <div class="stat-box"><div class="big counter" data-target="56">0</div><div class="tiny" data-zh="年全球節電 TWh" data-en="Annual Energy Savings TWh">年全球節電 TWh</div></div>
+    <div class="stat-box"><div class="big counter" data-target="2030">0</div><div class="tiny" data-zh="碳中和目標年份" data-en="Carbon Neutral Target">碳中和目標年份</div></div>
+  </div>
+  <div class="pillar-row" style="margin-top:32px">
+    <div class="pillar"><div class="pillar-icon">⚡</div><div class="pillar-title" data-zh="電源管理" data-en="Power Management">電源管理</div><div class="pillar-desc" data-zh="高效電源供應器與UPS系統，全球市佔率第一" data-en="High-efficiency power supplies and UPS systems, #1 global market share">高效電源供應器與UPS系統，全球市佔率第一</div></div>
+    <div class="pillar"><div class="pillar-icon">🏭</div><div class="pillar-title" data-zh="工業自動化" data-en="Industrial Automation">工業自動化</div><div class="pillar-desc" data-zh="伺服驅動器、機器視覺、PLC控制系統" data-en="Servo drives, machine vision, PLC control systems">伺服驅動器、機器視覺、PLC控制系統</div></div>
+    <div class="pillar"><div class="pillar-icon">🌿</div><div class="pillar-title" data-zh="ESG領導力" data-en="ESG Leadership">ESG領導力</div><div class="pillar-desc" data-zh="DJSI入選企業，CDP A-List評級" data-en="DJSI constituent, CDP A-List rating">DJSI入選企業，CDP A-List評級</div></div>
+    <div class="pillar"><div class="pillar-icon">🚗</div><div class="pillar-title" data-zh="電動車基礎設施" data-en="EV Infrastructure">電動車基礎設施</div><div class="pillar-desc" data-zh="全球EV充電解決方案提供商，覆蓋35國" data-en="Global EV charging solution provider covering 35 countries">全球EV充電解決方案提供商，覆蓋35國</div></div>
+    <div class="pillar"><div class="pillar-icon">🤖</div><div class="pillar-title" data-zh="AI數據中心" data-en="AI Data Center">AI數據中心</div><div class="pillar-desc" data-zh="AI伺服器冷卻與電源，為全球頂尖科技公司供應" data-en="AI server cooling and power for world's top tech companies">AI伺服器冷卻與電源，為全球頂尖科技公司供應</div></div>
+    <div class="pillar"><div class="pillar-icon">🏙️</div><div class="pillar-title" data-zh="智慧建築" data-en="Smart Buildings">智慧建築</div><div class="pillar-desc" data-zh="能源管理與樓宇自動化整合解決方案" data-en="Energy management and building automation integrated solutions">能源管理與樓宇自動化整合解決方案</div></div>
+  </div>
+  <div style="margin-top:32px">
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px;color:var(--delta-cyan)" data-zh="ESG永續策略重點" data-en="ESG Sustainability Strategy Highlights">ESG永續策略重點</h3>
+    <div class="card-grid card-grid-3">
+      <div class="card"><div style="font-size:1.5rem;margin-bottom:8px">🌱</div><h4 style="font-weight:700;margin-bottom:6px;font-size:0.9rem" data-zh="RE100承諾" data-en="RE100 Commitment">RE100承諾</h4><p style="font-size:0.8rem;color:var(--text2);line-height:1.5" data-zh="承諾於2030年達成全球廠區100%使用再生能源，目前進度達60%以上。" data-en="Committed to 100% renewable energy across all global facilities by 2030, currently exceeding 60%.">承諾於2030年達成全球廠區100%使用再生能源，目前進度達60%以上。</p></div>
+      <div class="card"><div style="font-size:1.5rem;margin-bottom:8px">♻️</div><h4 style="font-weight:700;margin-bottom:6px;font-size:0.9rem" data-zh="循環經濟" data-en="Circular Economy">循環經濟</h4><p style="font-size:0.8rem;color:var(--text2);line-height:1.5" data-zh="產品生命週期延伸設計，推動廢棄物零廢棄目標，強化供應鏈綠化。" data-en="Extended product lifecycle design, pursuing zero waste targets, and strengthening supply chain greening.">產品生命週期延伸設計，推動廢棄物零廢棄目標，強化供應鏈綠化。</p></div>
+      <div class="card"><div style="font-size:1.5rem;margin-bottom:8px">💧</div><h4 style="font-weight:700;margin-bottom:6px;font-size:0.9rem" data-zh="水資源管理" data-en="Water Management">水資源管理</h4><p style="font-size:0.8rem;color:var(--text2);line-height:1.5" data-zh="強化水資源回收再利用，目標2030年水強度下降30%，推動缺水地區節水方案。" data-en="Enhancing water recycling and reuse, targeting 30% reduction in water intensity by 2030.">強化水資源回收再利用，目標2030年水強度下降30%，推動缺水地區節水方案。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PESTEL -->
+<div id="section-pestel" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="總體環境" data-en="MACRO ENVIRONMENT">總體環境</div>
+    <h1 class="sec-title">PESTEL <span class="accent" data-zh="分析" data-en="Analysis">分析</span></h1>
+    <p class="sec-desc" data-zh="深入分析影響台達電子的六大總體環境因素，評估機會與風險並提出策略應對。" data-en="In-depth analysis of six macro-environmental factors affecting Delta Electronics, evaluating opportunities and risks with strategic responses.">深入分析影響台達電子的六大總體環境因素，評估機會與風險並提出策略應對。</p>
+  </div>
+  <div class="pestel-grid" id="pestelGrid"></div>
+  <div style="margin-top:32px">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--delta-cyan)" data-zh="PESTEL 影響力雷達圖" data-en="PESTEL Impact Radar Chart">PESTEL 影響力雷達圖</h3>
+    <div class="chart-wrap"><canvas id="pestelChart"></canvas></div>
+  </div>
+</div>
+
+<!-- BUSINESS OPPORTUNITY -->
+<div id="section-opportunity" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="市場機會" data-en="MARKET OPPORTUNITY">市場機會</div>
+    <h1 class="sec-title" data-zh="商機分析" data-en="Business Opportunity <span class='accent'>Analysis</span>">商機分析</h1>
+    <p class="sec-desc" data-zh="從B2B與B2C雙重視角，分析台達電子面臨的市場需求機會與策略布局。" data-en="Analyzing Delta Electronics' market demand opportunities and strategic positioning from both B2B and B2C perspectives.">從B2B與B2C雙重視角，分析台達電子面臨的市場需求機會與策略布局。</p>
+  </div>
+  <div class="card-grid card-grid-2" style="margin-bottom:28px">
+    <div class="card" style="border-color:var(--delta-blue)">
+      <div style="font-size:1.5rem;margin-bottom:10px">🏢</div>
+      <h3 style="font-weight:700;color:var(--delta-cyan);margin-bottom:10px;font-size:1.1rem" data-zh="B2B 企業端機會" data-en="B2B Business Opportunities">B2B 企業端機會</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--delta-cyan)">▸</span><span data-zh="AI數據中心電源與散熱需求急增，CAGR預估25%+" data-en="AI data center power and cooling demand surging, CAGR estimated at 25%+">AI數據中心電源與散熱需求急增，CAGR預估25%+</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--delta-cyan)">▸</span><span data-zh="智慧製造與工業4.0轉型驅動自動化設備採購" data-en="Smart manufacturing and Industry 4.0 transformation driving automation equipment procurement">智慧製造與工業4.0轉型驅動自動化設備採購</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--delta-cyan)">▸</span><span data-zh="企業ESG合規要求強化綠色能源設備採購" data-en="Enterprise ESG compliance requirements strengthening green energy equipment procurement">企業ESG合規要求強化綠色能源設備採購</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--delta-cyan)">▸</span><span data-zh="電動公車、物流車隊充電基礎設施建設商機龐大" data-en="Electric bus and logistics fleet charging infrastructure construction represents massive opportunity">電動公車、物流車隊充電基礎設施建設商機龐大</span></li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--delta-teal)">
+      <div style="font-size:1.5rem;margin-bottom:10px">👤</div>
+      <h3 style="font-weight:700;color:var(--neon2);margin-bottom:10px;font-size:1.1rem" data-zh="B2C 消費端機會" data-en="B2C Consumer Opportunities">B2C 消費端機會</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--neon2)">▸</span><span data-zh="家用EV充電樁需求隨電動車普及快速增長" data-en="Residential EV charging station demand growing rapidly with EV adoption">家用EV充電樁需求隨電動車普及快速增長</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--neon2)">▸</span><span data-zh="智慧家電與IoT設備帶動高效電源管理IC需求" data-en="Smart home appliances and IoT devices driving demand for efficient power management ICs">智慧家電與IoT設備帶動高效電源管理IC需求</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--neon2)">▸</span><span data-zh="消費者對能源自給自足意識提升，太陽能+儲能需求增" data-en="Rising consumer awareness of energy self-sufficiency, increasing solar+storage demand">消費者對能源自給自足意識提升，太陽能+儲能需求增</span></li>
+        <li style="font-size:0.82rem;color:var(--text2);padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--neon2)">▸</span><span data-zh="遊戲電競、AI PC需求推動高效能電源供應器市場" data-en="Gaming, esports, and AI PC demand driving high-performance power supply market">遊戲電競、AI PC需求推動高效能電源供應器市場</span></li>
+      </ul>
+    </div>
+  </div>
+  <h3 style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--delta-cyan)" data-zh="商機矩陣：可行性 vs 市場規模" data-en="Opportunity Matrix: Feasibility vs Market Size">商機矩陣：可行性 vs 市場規模</h3>
+  <div class="opp-matrix">
+    <div class="opp-cell hh"><div class="opp-cell-label" data-zh="高市場規模 × 高可行性" data-en="High Market Size × High Feasibility">高市場規模 × 高可行性</div><div class="opp-cell-title" data-zh="⭐ AI數據中心電源" data-en="⭐ AI Data Center Power">⭐ AI數據中心電源</div><div class="opp-cell-desc" data-zh="立即優先投資，具有明確競爭優勢與技術壁壘。" data-en="Immediate priority investment with clear competitive advantages and technical barriers.">立即優先投資，具有明確競爭優勢與技術壁壘。</div></div>
+    <div class="opp-cell hl"><div class="opp-cell-label" data-zh="低市場規模 × 高可行性" data-en="Low Market Size × High Feasibility">低市場規模 × 高可行性</div><div class="opp-cell-title" data-zh="🔧 工業自動化升級" data-en="🔧 Industrial Automation Upgrade">🔧 工業自動化升級</div><div class="opp-cell-desc" data-zh="利用核心優勢快速切入，擴大既有客戶滲透率。" data-en="Leverage core competencies for rapid entry, expand existing customer penetration.">利用核心優勢快速切入，擴大既有客戶滲透率。</div></div>
+    <div class="opp-cell lh"><div class="opp-cell-label" data-zh="高市場規模 × 低可行性" data-en="High Market Size × Low Feasibility">高市場規模 × 低可行性</div><div class="opp-cell-title" data-zh="🚀 EV大眾市場充電" data-en="🚀 Mass Market EV Charging">🚀 EV大眾市場充電</div><div class="opp-cell-desc" data-zh="需要夥伴合作與政策支持，長期布局方向。" data-en="Requires partnership and policy support, long-term strategic direction.">需要夥伴合作與政策支持，長期布局方向。</div></div>
+    <div class="opp-cell ll"><div class="opp-cell-label" data-zh="低市場規模 × 低可行性" data-en="Low Market Size × Low Feasibility">低市場規模 × 低可行性</div><div class="opp-cell-title" data-zh="🌐 消費物聯網" data-en="🌐 Consumer IoT">🌐 消費物聯網</div><div class="opp-cell-desc" data-zh="選擇性布局，聚焦於高效電源IC等具差異化利基。" data-en="Selective deployment, focused on differentiated niches like high-efficiency power ICs.">選擇性布局，聚焦於高效電源IC等具差異化利基。</div></div>
+  </div>
+  <div class="chart-wrap" style="margin-top:24px"><canvas id="opportunityChart"></canvas></div>
+</div>
+
+<!-- INDUSTRY ANALYSIS -->
+<div id="section-industry" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="產業觀察" data-en="INDUSTRY INSIGHT">產業觀察</div>
+    <h1 class="sec-title" data-zh="產業分析" data-en="Industry <span class='accent'>Analysis</span>">產業分析</h1>
+  </div>
+  <h3 style="font-weight:700;margin-bottom:16px;font-size:1rem;color:var(--delta-cyan)" data-zh="供應鏈結構" data-en="Supply Chain Structure">供應鏈結構</h3>
+  <div class="supply-chain">
+    <div class="sc-node"><div class="sc-node-icon">⛏️</div><div class="sc-node-name" data-zh="原材料供應商" data-en="Raw Material Suppliers">原材料供應商</div><div class="sc-node-desc" data-zh="銅、鋁、稀土金屬" data-en="Copper, Aluminum, Rare Earth">銅、鋁、稀土金屬</div></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-node"><div class="sc-node-icon">💡</div><div class="sc-node-name" data-zh="半導體零件" data-en="Semiconductor Parts">半導體零件</div><div class="sc-node-desc" data-zh="IC、MOSFET、電容器" data-en="IC, MOSFET, Capacitors">IC、MOSFET、電容器</div></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-node highlight"><div class="sc-node-icon">Δ</div><div class="sc-node-name" data-zh="台達電子製造" data-en="Delta Manufacturing">台達電子製造</div><div class="sc-node-desc" data-zh="設計、生產、測試" data-en="Design, Production, Testing">設計、生產、測試</div></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-node"><div class="sc-node-icon">🔄</div><div class="sc-node-name" data-zh="ODM/OEM代工" data-en="ODM/OEM Partners">ODM/OEM代工</div><div class="sc-node-desc" data-zh="彈性擴產能力" data-en="Flexible Capacity">彈性擴產能力</div></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-node"><div class="sc-node-icon">📦</div><div class="sc-node-name" data-zh="分銷商/系統整合" data-en="Distributors/SI">分銷商/系統整合</div><div class="sc-node-desc" data-zh="全球通路夥伴" data-en="Global Channel Partners">全球通路夥伴</div></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-node"><div class="sc-node-icon">🏆</div><div class="sc-node-name" data-zh="終端客戶" data-en="End Customers">終端客戶</div><div class="sc-node-desc" data-zh="企業/政府/消費者" data-en="Enterprise/Government/Consumer">企業/政府/消費者</div></div>
+  </div>
+  <h3 style="font-weight:700;margin:28px 0 12px;font-size:1rem;color:var(--delta-cyan)" data-zh="產業生命週期定位" data-en="Industry Life Cycle Position">產業生命週期定位</h3>
+  <div style="position:relative;margin-bottom:40px">
+    <div class="lifecycle-bar">
+      <div class="lc-phase intro" data-zh="導入期" data-en="Introduction">導入期<div class="lc-marker" data-zh="1971-1990" data-en="1971-1990">1971-1990</div></div>
+      <div class="lc-phase growth" data-zh="成長期" data-en="Growth">成長期<div class="lc-marker" data-zh="1990-2010" data-en="1990-2010">1990-2010</div></div>
+      <div class="lc-phase maturity" data-zh="★ 成熟期 (現在)" data-en="★ Maturity (Now)">★ 成熟期<div class="lc-marker" data-zh="2010-現在" data-en="2010-Present">2010-現在</div></div>
+      <div class="lc-phase decline" data-zh="衰退期" data-en="Decline">衰退期<div class="lc-marker" data-zh="未來" data-en="Future">未來</div></div>
+    </div>
+  </div>
+  <h3 style="font-weight:700;margin:40px 0 16px;font-size:1rem;color:var(--delta-cyan)" data-zh="競合分析" data-en="Co-opetition Analysis">競合分析</h3>
+  <div class="card-grid card-grid-3">
+    <div class="card" style="border-color:rgba(231,76,60,0.4)"><div style="font-size:1.3rem;margin-bottom:8px">⚔️</div><h4 style="font-weight:700;color:#E74C3C;margin-bottom:8px;font-size:0.9rem" data-zh="主要競爭者" data-en="Key Competitors">主要競爭者</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:4px"><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 施耐德電機 (Schneider Electric)" data-en="• Schneider Electric">• 施耐德電機 (Schneider Electric)</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• ABB 集團" data-en="• ABB Group">• ABB 集團</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 伊頓電力 (Eaton)" data-en="• Eaton Corporation">• 伊頓電力 (Eaton)</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 台達同業：飛宏科技" data-en="• Domestic Rival: Phihong">• 台達同業：飛宏科技</li></ul></div>
+    <div class="card" style="border-color:rgba(46,204,113,0.4)"><div style="font-size:1.3rem;margin-bottom:8px">🤝</div><h4 style="font-weight:700;color:#2ECC71;margin-bottom:8px;font-size:0.9rem" data-zh="合作夥伴" data-en="Strategic Partners">合作夥伴</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:4px"><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 微軟 Azure 數據中心供應商" data-en="• Microsoft Azure Data Center Supplier">• 微軟 Azure 數據中心供應商</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• Google 綠色能源合作夥伴" data-en="• Google Green Energy Partner">• Google 綠色能源合作夥伴</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• Siemens 工業自動化協同" data-en="• Siemens Industrial Automation">• Siemens 工業自動化協同</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• Tesla 充電基礎設施合作" data-en="• Tesla Charging Infrastructure">• Tesla 充電基礎設施合作</li></ul></div>
+    <div class="card" style="border-color:rgba(0,180,216,0.4)"><div style="font-size:1.3rem;margin-bottom:8px">🔄</div><h4 style="font-weight:700;color:var(--delta-cyan);margin-bottom:8px;font-size:0.9rem" data-zh="競合策略" data-en="Co-opetition Strategy">競合策略</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:4px"><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 在標準制定上與對手合作" data-en="• Collaborate on standard setting">• 在標準制定上與對手合作</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 垂直整合強化核心競爭力" data-en="• Vertical integration strengthens core competency">• 垂直整合強化核心競爭力</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 生態系建構降低客戶流失" data-en="• Ecosystem building reduces churn">• 生態系建構降低客戶流失</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 區域性策略差異化布局" data-en="• Regional strategic differentiation">• 區域性策略差異化布局</li></ul></div>
+  </div>
+  <div class="chart-wrap" style="margin-top:24px"><canvas id="industryChart"></canvas></div>
+</div>
+
+<!-- FIRM ANALYSIS -->
+<div id="section-firm" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="企業剖析" data-en="FIRM PROFILE">企業剖析</div>
+    <h1 class="sec-title" data-zh="企業分析" data-en="Firm <span class='accent'>Analysis</span>">企業分析</h1>
+  </div>
+  <div style="margin-bottom:28px">
+    <h3 style="font-weight:700;margin-bottom:16px;font-size:1rem;color:var(--delta-cyan)" data-zh="財務表現趨勢 (億新台幣)" data-en="Financial Performance Trend (Billion NTD)">財務表現趨勢 (億新台幣)</h3>
+    <div class="chart-wrap"><canvas id="financialChart"></canvas></div>
+  </div>
+  <h3 style="font-weight:700;margin-bottom:16px;font-size:1rem;color:var(--delta-cyan)" data-zh="SWOT 分析" data-en="SWOT Analysis">SWOT 分析</h3>
+  <div class="swot-grid">
+    <div class="swot-cell s"><div class="swot-label" data-zh="S 優勢 Strengths" data-en="S Strengths">S 優勢 Strengths</div><ul class="swot-list" style="color:#2ECC71"><li data-zh="全球電源管理技術領導地位" data-en="Global power management technology leadership">全球電源管理技術領導地位</li><li data-zh="強健的ESG品牌聲譽" data-en="Strong ESG brand reputation">強健的ESG品牌聲譽</li><li data-zh="垂直整合製造能力" data-en="Vertically integrated manufacturing capability">垂直整合製造能力</li><li data-zh="多元化產品組合" data-en="Diversified product portfolio">多元化產品組合</li></ul></div>
+    <div class="swot-cell w"><div class="swot-label" data-zh="W 劣勢 Weaknesses" data-en="W Weaknesses">W 劣勢 Weaknesses</div><ul class="swot-list" style="color:#E74C3C"><li data-zh="消費品牌知名度相對較低" data-en="Relatively low consumer brand awareness">消費品牌知名度相對較低</li><li data-zh="部分產品毛利率偏低" data-en="Some product lines have lower margins">部分產品毛利率偏低</li><li data-zh="中國市場依賴度較高" data-en="High dependency on China market">中國市場依賴度較高</li><li data-zh="軟體服務轉型仍在進行中" data-en="Software service transformation still in progress">軟體服務轉型仍在進行中</li></ul></div>
+    <div class="swot-cell o"><div class="swot-label" data-zh="O 機會 Opportunities" data-en="O Opportunities">O 機會 Opportunities</div><ul class="swot-list" style="color:var(--delta-cyan)"><li data-zh="AI運算基礎設施爆發性需求" data-en="Explosive demand for AI computing infrastructure">AI運算基礎設施爆發性需求</li><li data-zh="全球EV充電網絡建設加速" data-en="Global EV charging network deployment accelerating">全球EV充電網絡建設加速</li><li data-zh="能源轉型政策紅利" data-en="Energy transition policy dividends">能源轉型政策紅利</li><li data-zh="智慧製造需求持續增長" data-en="Continued smart manufacturing demand growth">智慧製造需求持續增長</li></ul></div>
+    <div class="swot-cell t"><div class="swot-label" data-zh="T 威脅 Threats" data-en="T Threats">T 威脅 Threats</div><ul class="swot-list" style="color:var(--accent)"><li data-zh="地緣政治與供應鏈風險" data-en="Geopolitical and supply chain risks">地緣政治與供應鏈風險</li><li data-zh="中國競爭者快速崛起" data-en="Rapid rise of Chinese competitors">中國競爭者快速崛起</li><li data-zh="半導體元件短缺風險" data-en="Semiconductor component shortage risks">半導體元件短缺風險</li><li data-zh="技術迭代速度加快" data-en="Accelerating technology iteration pace">技術迭代速度加快</li></ul></div>
+  </div>
+  <div style="margin-top:28px">
+    <h3 style="font-weight:700;margin-bottom:16px;font-size:1rem;color:var(--delta-cyan)" data-zh="關鍵績效指標 (KPI)" data-en="Key Performance Indicators (KPI)">關鍵績效指標 (KPI)</h3>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="text-align:center"><div style="font-size:1.8rem;font-weight:900;color:var(--delta-cyan);font-family:var(--font-mono)">~8%</div><div style="font-size:0.75rem;color:var(--text2);margin-top:4px" data-zh="年均營收成長率" data-en="Annual Revenue CAGR">年均營收成長率</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" data-width="75"></div></div></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.8rem;font-weight:900;color:var(--neon);font-family:var(--font-mono)">~9%</div><div style="font-size:0.75rem;color:var(--text2);margin-top:4px" data-zh="稅後淨利率" data-en="Net Profit Margin">稅後淨利率</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" data-width="60"></div></div></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.8rem;font-weight:900;color:var(--neon2);font-family:var(--font-mono)">3.5%</div><div style="font-size:0.75rem;color:var(--text2);margin-top:4px" data-zh="研發費用佔比" data-en="R&D Expense Ratio">研發費用佔比</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" data-width="55"></div></div></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.8rem;font-weight:900;color:var(--accent);font-family:var(--font-mono)">60%+</div><div style="font-size:0.75rem;color:var(--text2);margin-top:4px" data-zh="可再生能源使用率" data-en="Renewable Energy Usage">可再生能源使用率</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" data-width="60"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- VALUE CHAIN ANALYSIS -->
+<div id="section-vca" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="策略分析" data-en="STRATEGIC ANALYSIS">策略分析</div>
+    <h1 class="sec-title" data-zh="價值鏈分析" data-en="Value Chain <span class='accent'>Analysis</span>">價值鏈分析</h1>
+    <p class="sec-desc" data-zh="Porter的價值鏈分析將企業活動分為主要活動與支援活動，揭示台達電子的核心競爭來源。" data-en="Porter's value chain analysis breaks business activities into primary and support activities, revealing Delta Electronics' sources of competitive advantage.">Porter的價值鏈分析將企業活動分為主要活動與支援活動，揭示台達電子的核心競爭來源。</p>
+  </div>
+  <div class="vca-wrap">
+    <div class="vca-label" data-zh="▶ 主要活動 (Primary Activities)" data-en="▶ Primary Activities">▶ 主要活動 (Primary Activities)</div>
+    <div class="vca-primary">
+      <div class="vca-act"><div class="vca-act-icon">📥</div><div class="vca-act-title" data-zh="入站物流" data-en="Inbound Logistics">入站物流</div><div class="vca-act-desc" data-zh="嚴格的供應商資格審核，建立全球多元採購網絡，強化原料品質管控與庫存優化。" data-en="Rigorous supplier qualification, global diversified procurement network, enhanced material quality control and inventory optimization.">嚴格的供應商資格審核，建立全球多元採購網絡，強化原料品質管控與庫存優化。</div></div>
+      <div class="vca-act"><div class="vca-act-icon">⚙️</div><div class="vca-act-title" data-zh="生產作業" data-en="Operations">生產作業</div><div class="vca-act-desc" data-zh="自動化生產線部署，ISO認證製程管理，精實製造(Lean Manufacturing)降低浪費。" data-en="Automated production line deployment, ISO-certified process management, lean manufacturing to reduce waste.">自動化生產線部署，ISO認證製程管理，精實製造(Lean Manufacturing)降低浪費。</div></div>
+      <div class="vca-act"><div class="vca-act-icon">📤</div><div class="vca-act-title" data-zh="出站物流" data-en="Outbound Logistics">出站物流</div><div class="vca-act-desc" data-zh="全球倉儲物流網絡，智能化訂單追蹤系統，快速響應客戶交付需求。" data-en="Global warehousing and logistics network, intelligent order tracking systems, rapid response to customer delivery needs.">全球倉儲物流網絡，智能化訂單追蹤系統，快速響應客戶交付需求。</div></div>
+      <div class="vca-act"><div class="vca-act-icon">📣</div><div class="vca-act-title" data-zh="行銷與銷售" data-en="Marketing & Sales">行銷與銷售</div><div class="vca-act-desc" data-zh="B2B直銷+分銷商通路並行，技術行銷驅動客戶決策，ESG故事強化品牌溢價。" data-en="Parallel B2B direct sales and distributor channels, technical marketing driving customer decisions, ESG narrative strengthening brand premium.">B2B直銷+分銷商通路並行，技術行銷驅動客戶決策，ESG故事強化品牌溢價。</div></div>
+      <div class="vca-act"><div class="vca-act-icon">🔧</div><div class="vca-act-title" data-zh="售後服務" data-en="Service">售後服務</div><div class="vca-act-desc" data-zh="全球技術服務中心，遠端診斷與預測性維護，完善的保固與服務合約。" data-en="Global technical service centers, remote diagnostics and predictive maintenance, comprehensive warranty and service contracts.">全球技術服務中心，遠端診斷與預測性維護，完善的保固與服務合約。</div></div>
+    </div>
+    <div class="vca-label" style="margin-top:24px" data-zh="▲ 支援活動 (Support Activities)" data-en="▲ Support Activities">▲ 支援活動 (Support Activities)</div>
+    <div class="vca-support">
+      <div class="vca-sup"><div class="vca-sup-title" data-zh="企業基礎建設" data-en="Firm Infrastructure">企業基礎建設</div><div class="vca-sup-desc" data-zh="跨國治理架構，法規遵循，財務管理，ESG整合報告" data-en="Multinational governance, regulatory compliance, financial management, ESG integrated reporting">跨國治理架構，法規遵循，財務管理，ESG整合報告</div></div>
+      <div class="vca-sup"><div class="vca-sup-title" data-zh="人力資源管理" data-en="Human Resource Mgmt">人力資源管理</div><div class="vca-sup-desc" data-zh="培育電力電子與AI人才，全球化人才管理，持續學習文化" data-en="Cultivating power electronics and AI talent, global talent management, continuous learning culture">培育電力電子與AI人才，全球化人才管理，持續學習文化</div></div>
+      <div class="vca-sup"><div class="vca-sup-title" data-zh="技術研發" data-en="Technology Development">技術研發</div><div class="vca-sup-desc" data-zh="年研發投入佔比3.5%+，GaN/SiC功率器件前沿研究，全球研發中心網絡" data-en="R&D investment >3.5% annually, cutting-edge GaN/SiC power device research, global R&D center network">年研發投入佔比3.5%+，GaN/SiC功率器件前沿研究，全球研發中心網絡</div></div>
+      <div class="vca-sup"><div class="vca-sup-title" data-zh="採購管理" data-en="Procurement">採購管理</div><div class="vca-sup-desc" data-zh="負責任採購政策，供應商ESG評估，戰略庫存管理，雙源供貨策略" data-en="Responsible procurement policy, supplier ESG assessment, strategic inventory, dual-source supply strategy">負責任採購政策，供應商ESG評估，戰略庫存管理，雙源供貨策略</div></div>
+    </div>
+  </div>
+  <div style="margin-top:28px;background:linear-gradient(135deg,rgba(0,86,168,0.15),rgba(0,180,216,0.08));border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+    <h4 style="font-weight:700;color:var(--delta-cyan);margin-bottom:10px;font-size:0.9rem" data-zh="核心概念總結" data-en="Core Concept Summary">核心概念總結</h4>
+    <p style="font-size:0.83rem;color:var(--text2);line-height:1.7" data-zh="台達電子的競爭優勢來自於技術研發支援活動的持續投入，配合精實的生產作業主要活動，加上強化的服務活動形成完整的客戶價值鏈。其ESG整合策略更將永續發展嵌入每個活動節點，形成難以模仿的競爭護城河。" data-en="Delta Electronics' competitive advantage stems from continuous investment in technology R&D support activities, combined with lean production operations, enhanced service activities forming a complete customer value chain. Their ESG integration strategy embeds sustainability into every activity node, forming a difficult-to-imitate competitive moat.">台達電子的競爭優勢來自於技術研發支援活動的持續投入，配合精實的生產作業主要活動，加上強化的服務活動形成完整的客戶價值鏈。其ESG整合策略更將永續發展嵌入每個活動節點，形成難以模仿的競爭護城河。</p>
+  </div>
+</div>
+
+<!-- VALUE NET ANALYSIS -->
+<div id="section-vna" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="生態系分析" data-en="ECOSYSTEM ANALYSIS">生態系分析</div>
+    <h1 class="sec-title" data-zh="價值網分析" data-en="Value Net <span class='accent'>Analysis</span>">價值網分析</h1>
+    <p class="sec-desc" data-zh="運用PARTS模型（Players、Added Value、Rules、Tactics、Scope）分析台達電子的競爭生態系。" data-en="Using the PARTS model (Players, Added Value, Rules, Tactics, Scope) to analyze Delta Electronics' competitive ecosystem.">運用PARTS模型（Players、Added Value、Rules、Tactics、Scope）分析台達電子的競爭生態系。</p>
+  </div>
+  <div class="vnet-wrap">
+    <svg class="vnet-svg" viewBox="0 0 620 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#0056A8"/>
+          <stop offset="100%" stop-color="#00B4D8"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="rgba(0,180,216,0.6)"/>
+        </marker>
+        <marker id="arrowL" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto">
+          <path d="M8,0 L8,6 L0,3 z" fill="rgba(0,180,216,0.6)"/>
+        </marker>
+      </defs>
+
+      <!-- Connecting lines with arrows (bidirectional) -->
+      <!-- Center ↔ Top (Customers) -->
+      <line x1="310" y1="175" x2="310" y2="105" stroke="rgba(0,180,216,0.5)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowR)"/>
+      <line x1="310" y1="245" x2="310" y2="315" stroke="rgba(0,180,216,0.5)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowR)"/>
+      <line x1="245" y1="210" x2="175" y2="210" stroke="rgba(0,180,216,0.5)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowR)"/>
+      <line x1="375" y1="210" x2="445" y2="210" stroke="rgba(0,180,216,0.5)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowR)"/>
+
+      <!-- Node backgrounds: top=Customers, bottom=Suppliers, left=Competitors, right=Complementors -->
+      <!-- TOP — Customers -->
+      <rect x="236" y="18" width="148" height="82" rx="14" fill="rgba(0,180,216,0.08)" stroke="rgba(0,180,216,0.35)" stroke-width="1.5"/>
+      <text x="310" y="42" text-anchor="middle" font-size="20">👥</text>
+      <text x="310" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#00B4D8" class="vna-label" data-zh="客戶" data-en="Customers">客戶</text>
+      <text x="310" y="78" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="科技公司、雲端服務商" data-en="Tech firms, Cloud">科技公司、雲端服務商</text>
+      <text x="310" y="92" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="製造業者" data-en="Manufacturers">製造業者</text>
+
+      <!-- BOTTOM — Suppliers -->
+      <rect x="236" y="318" width="148" height="82" rx="14" fill="rgba(46,204,113,0.08)" stroke="rgba(46,204,113,0.35)" stroke-width="1.5"/>
+      <text x="310" y="342" text-anchor="middle" font-size="20">🏭</text>
+      <text x="310" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#2ECC71" class="vna-label" data-zh="供應商" data-en="Suppliers">供應商</text>
+      <text x="310" y="378" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="半導體廠商" data-en="Semiconductor firms">半導體廠商</text>
+      <text x="310" y="392" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="原料供應商" data-en="Raw material suppliers">原料供應商</text>
+
+      <!-- LEFT — Competitors -->
+      <rect x="18" y="168" width="148" height="82" rx="14" fill="rgba(231,76,60,0.08)" stroke="rgba(231,76,60,0.35)" stroke-width="1.5"/>
+      <text x="92" y="192" text-anchor="middle" font-size="20">⚔️</text>
+      <text x="92" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#E74C3C" class="vna-label" data-zh="競爭者" data-en="Competitors">競爭者</text>
+      <text x="92" y="228" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="ABB、Schneider" data-en="ABB, Schneider">ABB、Schneider</text>
+      <text x="92" y="242" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="Eaton" data-en="Eaton">Eaton</text>
+
+      <!-- RIGHT — Complementors -->
+      <rect x="454" y="168" width="148" height="82" rx="14" fill="rgba(155,89,182,0.08)" stroke="rgba(155,89,182,0.35)" stroke-width="1.5"/>
+      <text x="528" y="192" text-anchor="middle" font-size="20">🤝</text>
+      <text x="528" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#9B59B6" class="vna-label" data-zh="互補者" data-en="Complementors">互補者</text>
+      <text x="528" y="228" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="微軟、Google" data-en="Microsoft, Google">微軟、Google</text>
+      <text x="528" y="242" text-anchor="middle" font-size="9.5" fill="#94A3B8" class="vna-sub" data-zh="Siemens" data-en="Siemens">Siemens</text>
+
+      <!-- CENTER — Delta -->
+      <circle cx="310" cy="210" r="68" fill="url(#centerGrad)" filter="url(#glow)" opacity="0.15"/>
+      <circle cx="310" cy="210" r="65" fill="url(#centerGrad)"/>
+      <text x="310" y="198" text-anchor="middle" font-size="11" font-weight="800" fill="white">台達電子</text>
+      <text x="310" y="214" text-anchor="middle" font-size="11" font-weight="800" fill="white">Delta</text>
+      <text x="310" y="230" text-anchor="middle" font-size="11" font-weight="800" fill="white">Electronics</text>
+    </svg>
+  </div>
+  <div class="card-grid card-grid-2" style="margin-top:24px">
+    <div class="card"><h4 style="font-weight:700;color:var(--delta-cyan);margin-bottom:10px;font-size:0.9rem" data-zh="🎮 PARTS模型解析" data-en="🎮 PARTS Model Analysis">🎮 PARTS模型解析</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:8px"><li style="font-size:0.8rem;color:var(--text2);line-height:1.5"><span style="color:var(--delta-cyan);font-weight:700">P Players：</span><span data-zh="台達、競爭者ABB/Schneider、客戶(雲端/製造)、供應商(半導體廠)、互補者(系統整合商)" data-en="Delta, competitors ABB/Schneider, customers (cloud/manufacturing), suppliers (semiconductor), complementors (system integrators)">台達、競爭者ABB/Schneider、客戶(雲端/製造)、供應商(半導體廠)、互補者(系統整合商)</span></li><li style="font-size:0.8rem;color:var(--text2);line-height:1.5"><span style="color:var(--delta-cyan);font-weight:700">A Added Value：</span><span data-zh="台達提供高效率電源轉換、節能技術與全球服務能力，難以被快速替代" data-en="Delta provides high-efficiency power conversion, energy-saving technology and global service capability, difficult to replace quickly">台達提供高效率電源轉換、節能技術與全球服務能力，難以被快速替代</span></li><li style="font-size:0.8rem;color:var(--text2);line-height:1.5"><span style="color:var(--delta-cyan);font-weight:700">R Rules：</span><span data-zh="能效法規(IEC、80 Plus)、環境認證(ENERGY STAR)、行業標準參與塑造競爭規則" data-en="Energy efficiency regulations (IEC, 80 Plus), environmental certifications (ENERGY STAR), industry standard participation shapes competitive rules">能效法規(IEC、80 Plus)、環境認證(ENERGY STAR)、行業標準參與塑造競爭規則</span></li><li style="font-size:0.8rem;color:var(--text2);line-height:1.5"><span style="color:var(--delta-cyan);font-weight:700">T Tactics：</span><span data-zh="ESG先行策略建立品牌護城河；技術協同建立客戶黏性" data-en="ESG-first strategy builds brand moat; technological collaboration builds customer stickiness">ESG先行策略建立品牌護城河；技術協同建立客戶黏性</span></li><li style="font-size:0.8rem;color:var(--text2);line-height:1.5"><span style="color:var(--delta-cyan);font-weight:700">S Scope：</span><span data-zh="跨越電力電子→工業自動化→基礎設施→數位化轉型的全方位業務範疇" data-en="Spanning power electronics → industrial automation → infrastructure → digital transformation">跨越電力電子→工業自動化→基礎設施→數位化轉型的全方位業務範疇</span></li></ul></div>
+    <div class="card"><h4 style="font-weight:700;color:var(--neon2);margin-bottom:10px;font-size:0.9rem" data-zh="🌐 生態系策略洞察" data-en="🌐 Ecosystem Strategy Insights">🌐 生態系策略洞察</h4><p style="font-size:0.8rem;color:var(--text2);line-height:1.7;margin-bottom:12px" data-zh="台達電子在價值網路中扮演「智慧能源生態系」的核心連接者角色。透過與互補者(Google、Microsoft)的深度合作，台達的產品成為AI基礎設施不可或缺的一環，有效提升了其在整體生態系中的不可替代性。" data-en="Delta Electronics plays the role of a core connector in the 'smart energy ecosystem' value network. Through deep collaboration with complementors (Google, Microsoft), Delta's products become an indispensable part of AI infrastructure, effectively enhancing its irreplaceability in the overall ecosystem.">台達電子在價值網路中扮演「智慧能源生態系」的核心連接者角色。透過與互補者(Google、Microsoft)的深度合作，台達的產品成為AI基礎設施不可或缺的一環，有效提升了其在整體生態系中的不可替代性。</p><p style="font-size:0.8rem;color:var(--text2);line-height:1.7" data-zh="面對ABB、Schneider等競爭者，台達選擇「合則共贏」策略，在部分市場相互競爭，同時在IEC標準制定等層面保持合作，共同推動產業升級。" data-en="Facing competitors like ABB and Schneider, Delta adopts a 'cooperate to win together' strategy, competing in some markets while maintaining cooperation in areas like IEC standard-setting, jointly advancing industry upgrading.">面對ABB、Schneider等競爭者，台達選擇「合則共贏」策略，在部分市場相互競爭，同時在IEC標準制定等層面保持合作，共同推動產業升級。</p></div>
+  </div>
+</div>
+
+<!-- CAREER BLUEPRINT -->
+<div id="section-career" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="職涯發展" data-en="CAREER DEVELOPMENT">職涯發展</div>
+    <h1 class="sec-title" data-zh="學生職涯藍圖" data-en="Student Career <span class='accent'>Blueprint</span>">學生職涯藍圖</h1>
+    <p class="sec-desc" data-zh="以台達電子財務相關職位為目標，運用PMCS-EMI職涯策略架構進行規劃。職位連結：A20260505002" data-en="Targeting Delta Electronics finance-related positions using the PMCS-EMI Career Strategy Architecture. Position: A20260505002">以台達電子財務相關職位為目標，運用PMCS-EMI職涯策略架構進行規劃。職位連結：A20260505002</p>
+  </div>
+  <div class="card-grid card-grid-3" style="margin-bottom:28px">
+    <div class="card" style="border-color:var(--delta-cyan)"><h4 style="font-weight:700;color:var(--delta-cyan);margin-bottom:8px;font-size:0.9rem" data-zh="📋 目標職位分析" data-en="📋 Target Position Analysis">📋 目標職位分析</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:6px"><li style="font-size:0.78rem;color:var(--text2)" data-zh="🏢 公司：台達電子工業股份有限公司" data-en="🏢 Company: Delta Electronics, Inc.">🏢 公司：台達電子工業股份有限公司</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="💼 部門：財務/國際業務" data-en="💼 Department: Finance / International Business">💼 部門：財務/國際業務</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="📍 地點：台灣總部（新北市）" data-en="📍 Location: Taiwan HQ (New Taipei City)">📍 地點：台灣總部（新北市）</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="🎓 學歷：財務、會計或商管相關系所" data-en="🎓 Education: Finance, Accounting or Business">🎓 學歷：財務、會計或商管相關系所</li></ul></div>
+    <div class="card"><h4 style="font-weight:700;color:var(--neon2);margin-bottom:8px;font-size:0.9rem" data-zh="🔑 職位關鍵需求" data-en="🔑 Key Position Requirements">🔑 職位關鍵需求</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:6px"><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 財務分析與報表解讀能力" data-en="• Financial analysis and reporting skills">• 財務分析與報表解讀能力</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 英語商務溝通能力" data-en="• English business communication">• 英語商務溝通能力</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• Excel/ERP系統操作經驗" data-en="• Excel/ERP system experience">• Excel/ERP系統操作經驗</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• 跨部門協作與溝通能力" data-en="• Cross-functional collaboration">• 跨部門協作與溝通能力</li><li style="font-size:0.78rem;color:var(--text2)" data-zh="• ESG相關知識加分" data-en="• ESG knowledge is a plus">• ESG相關知識加分</li></ul></div>
+    <div class="card" style="border-color:var(--accent)"><h4 style="font-weight:700;color:var(--accent);margin-bottom:8px;font-size:0.9rem" data-zh="⭐ CSA-PMCS-EMI框架" data-en="⭐ CSA-PMCS-EMI Framework">⭐ CSA-PMCS-EMI框架</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:4px"><li style="font-size:0.75rem;color:var(--text2)" data-zh="P = Position 定位自我優勢" data-en="P = Position your strengths">P = Position 定位自我優勢</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="M = Market 市場機會識別" data-en="M = Market opportunity identification">M = Market 市場機會識別</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="C = Capability 能力發展" data-en="C = Capability development">C = Capability 能力發展</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="S = Strategy 行動策略" data-en="S = Strategy action plan">S = Strategy 行動策略</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="E = Execute 執行落地" data-en="E = Execute action">E = Execute 執行落地</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="M = Monitor 持續監測" data-en="M = Monitor progress">M = Monitor 持續監測</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="I = Iterate 持續迭代" data-en="I = Iterate continuously">I = Iterate 持續迭代</li></ul></div>
+  </div>
+
+  <div class="ai-box">
+    <h4 style="color:var(--neon);margin-bottom:12px;display:flex;align-items:center;gap:8px">✨ <span data-zh="AI 專屬職涯策略生成器" data-en="AI Personalized Career Strategist">AI 專屬職涯策略生成器</span></h4>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px" data-zh="利用 Gemini LLM，根據您的背景為您量身打造進入台達電子的專屬準備策略。" data-en="Leverage Gemini LLM to tailor a personalized preparation strategy for joining Delta Electronics based on your background.">利用 Gemini LLM，根據您的背景為您量身打造進入台達電子的專屬準備策略。</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <input type="text" id="aiMajorInput" class="ai-input" style="flex:1;min-width:200px;margin-bottom:0" placeholder="e.g., 電機工程 / Electrical Engineering" data-zh="科系 e.g., 電機工程" data-en="Major e.g., Electrical Engineering">
+      <input type="text" id="aiRoleInput" class="ai-input" style="flex:1;min-width:200px;margin-bottom:0" placeholder="e.g., 研發工程師 / R&D Engineer" data-zh="夢想職位 e.g., 研發工程師" data-en="Dream Role e.g., R&D Engineer">
+    </div>
+    <button class="ai-btn" id="aiCareerBtn" onclick="generateCareerStrategy()">
+      <span>✨</span>
+      <span id="aiCareerBtnText" data-zh="生成策略" data-en="Generate Strategy">生成策略</span>
+    </button>
+    <div id="aiCareerOutput" class="ai-output" style="display:none"></div>
+  </div>
+
+  <h3 style="font-weight:700;margin-bottom:20px;font-size:1rem;color:var(--delta-cyan)" data-zh="職涯發展路徑時間軸" data-en="Career Development Timeline">職涯發展路徑時間軸</h3>
+  <div class="career-timeline">
+    <div class="career-step"><div class="cs-dot">🎓</div><div class="cs-content"><div class="cs-phase" data-zh="第一階段 | 在學期間 (現在)" data-en="Phase 1 | During Studies (Now)">第一階段 | 在學期間 (現在)</div><div class="cs-title" data-zh="能力厚植與品牌建立" data-en="Capability Building & Personal Branding">能力厚植與品牌建立</div><div class="cs-desc" data-zh="深化財務分析能力，積極參與案例競賽與學術研究。完成台達電子企業分析專案，建立業界知識。考取相關財金證照，積累英語商務溝通能力。" data-en="Deepen financial analysis capabilities, actively participate in case competitions and academic research. Complete Delta Electronics corporate analysis project to build industry knowledge. Obtain relevant finance certifications, accumulate English business communication skills.">深化財務分析能力，積極參與案例競賽與學術研究。完成台達電子企業分析專案，建立業界知識。考取相關財金證照，積累英語商務溝通能力。</div><div class="cs-skills"><span class="skill-tag">CFA Level 1</span><span class="skill-tag">Excel VBA</span><span class="skill-tag">案例分析</span><span class="skill-tag">ESG基礎</span></div></div></div>
+    <div class="career-step"><div class="cs-dot">💼</div><div class="cs-content"><div class="cs-phase" data-zh="第二階段 | 求職準備 (畢業前6個月)" data-en="Phase 2 | Job Preparation (6 months before graduation)">第二階段 | 求職準備 (畢業前6個月)</div><div class="cs-title" data-zh="市場定位與精準投遞" data-en="Market Positioning & Targeted Application">市場定位與精準投遞</div><div class="cs-desc" data-zh="客製化履歷，強調與台達電子業務相關的財務分析、ESG知識與國際視野。透過LinkedIn建立業界人脈，爭取台達財務部門的實習機會。" data-en="Customize resume emphasizing Delta-relevant financial analysis, ESG knowledge and international perspective. Build industry connections via LinkedIn, pursue internship opportunities in Delta's finance department.">客製化履歷，強調與台達電子業務相關的財務分析、ESG知識與國際視野。透過LinkedIn建立業界人脈，爭取台達財務部門的實習機會。</div><div class="cs-skills"><span class="skill-tag">LinkedIn優化</span><span class="skill-tag">面試準備</span><span class="skill-tag">實習申請</span><span class="skill-tag">人脈建立</span></div></div></div>
+    <div class="career-step"><div class="cs-dot">🚀</div><div class="cs-content"><div class="cs-phase" data-zh="第三階段 | 入職後1-3年" data-en="Phase 3 | 1-3 Years After Joining">第三階段 | 入職後1-3年</div><div class="cs-title" data-zh="快速成長與跨部門拓展" data-en="Rapid Growth & Cross-functional Expansion">快速成長與跨部門拓展</div><div class="cs-desc" data-zh="積極表現，爭取參與國際財務報告或跨國項目。學習ERP系統，深化對台達各事業部財務結構的了解。爭取輪調機會接觸業務、採購或策略部門。" data-en="Excel in performance, pursue involvement in international financial reporting or cross-border projects. Learn ERP systems, deepen understanding of Delta's business unit financial structures. Seek rotation opportunities in sales, procurement or strategy departments.">積極表現，爭取參與國際財務報告或跨國項目。學習ERP系統，深化對台達各事業部財務結構的了解。爭取輪調機會接觸業務、採購或策略部門。</div><div class="cs-skills"><span class="skill-tag">SAP/ERP</span><span class="skill-tag">財務建模</span><span class="skill-tag">跨部門協作</span><span class="skill-tag">專案管理</span></div></div></div>
+    <div class="career-step"><div class="cs-dot">⭐</div><div class="cs-content"><div class="cs-phase" data-zh="第四階段 | 3-7年後" data-en="Phase 4 | 3-7 Years Later">第四階段 | 3-7年後</div><div class="cs-title" data-zh="晉升為財務主管或策略顧問" data-en="Promotion to Finance Manager or Strategy Advisor">晉升為財務主管或策略顧問</div><div class="cs-desc" data-zh="以深厚的台達業務理解與財務專業，晉升財務分析主管或事業部CFO助理。考慮考取MBA或進修，擴展策略思維。建立個人在ESG財務整合領域的專業聲譽。" data-en="With deep Delta business understanding and financial expertise, advance to Finance Analysis Manager or Business Unit CFO Assistant. Consider MBA or advanced studies to expand strategic thinking. Build personal professional reputation in ESG financial integration field.">以深厚的台達業務理解與財務專業，晉升財務分析主管或事業部CFO助理。考慮考取MBA或進修，擴展策略思維。建立個人在ESG財務整合領域的專業聲譽。</div><div class="cs-skills"><span class="skill-tag">領導力</span><span class="skill-tag">ESG財務</span><span class="skill-tag">CFA完成</span><span class="skill-tag">MBA</span></div></div></div>
+  </div>
+</div>
+
+<!-- INTERACTIVE LAB -->
+<div id="section-lab" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="互動探索" data-en="INTERACTIVE EXPLORATION">互動探索</div>
+    <h1 class="sec-title" data-zh="互動實驗室" data-en="Interactive <span class='accent'>Lab</span>">互動實驗室</h1>
+    <p class="sec-desc" data-zh="透過互動工具探索台達電子的ESG指標、市場情境與策略比較。" data-en="Explore Delta Electronics' ESG metrics, market scenarios and strategy comparisons through interactive tools.">透過互動工具探索台達電子的ESG指標、市場情境與策略比較。</p>
+  </div>
+  <div class="lab-grid">
+    <div class="lab-card">
+      <div class="lab-title">🌱 <span data-zh="ESG情境模擬器" data-en="ESG Scenario Simulator">ESG情境模擬器</span></div>
+      <div class="lab-controls">
+        <div class="lab-slider-wrap"><label><span data-zh="RE可再生能源使用率" data-en="Renewable Energy Usage">RE可再生能源使用率</span><span id="reVal">60%</span></label><input type="range" min="0" max="100" value="60" oninput="updateESG('re',this.value)"></div>
+        <div class="lab-slider-wrap"><label><span data-zh="碳排放強度削減" data-en="Carbon Intensity Reduction">碳排放強度削減</span><span id="carbonVal">45%</span></label><input type="range" min="0" max="100" value="45" oninput="updateESG('carbon',this.value)"></div>
+        <div class="lab-slider-wrap"><label><span data-zh="廢棄物回收率" data-en="Waste Recycling Rate">廢棄物回收率</span><span id="wasteVal">72%</span></label><input type="range" min="0" max="100" value="72" oninput="updateESG('waste',this.value)"></div>
+      </div>
+      <div class="chart-wrap" style="height:200px;margin-top:12px"><canvas id="esgLabChart"></canvas></div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-title">📈 <span data-zh="市場成長情境" data-en="Market Growth Scenarios">市場成長情境</span></div>
+      <div class="lab-btn-row">
+        <button class="lab-btn active" id="scen-base" onclick="setScenario('base')" data-zh="基準情境" data-en="Base Case">基準情境</button>
+        <button class="lab-btn" id="scen-bull" onclick="setScenario('bull')" data-zh="樂觀情境" data-en="Bull Case">樂觀情境</button>
+        <button class="lab-btn" id="scen-bear" onclick="setScenario('bear')" data-zh="悲觀情境" data-en="Bear Case">悲觀情境</button>
+      </div>
+      <div class="chart-wrap" style="height:220px;margin-top:12px"><canvas id="scenarioChart"></canvas></div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-title">🏆 <span data-zh="競爭者比較儀表板" data-en="Competitor Comparison Dashboard">競爭者比較儀表板</span></div>
+      <div class="lab-btn-row">
+        <button class="lab-btn active" id="comp-revenue" onclick="setMetric('revenue')" data-zh="營收規模" data-en="Revenue">營收規模</button>
+        <button class="lab-btn" id="comp-esg" onclick="setMetric('esg')" data-zh="ESG評分" data-en="ESG Score">ESG評分</button>
+        <button class="lab-btn" id="comp-rd" onclick="setMetric('rd')" data-zh="研發投入" data-en="R&D">研發投入</button>
+      </div>
+      <div class="chart-wrap" style="height:220px;margin-top:12px"><canvas id="compChart"></canvas></div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-title">⚡ <span data-zh="節能效益計算器" data-en="Energy Savings Calculator">節能效益計算器</span></div>
+      <div class="lab-controls">
+        <div class="lab-slider-wrap"><label><span data-zh="企業規模 (員工數千人)" data-en="Company Size (thousands)">企業規模 (員工數千人)</span><span id="sizeVal">10k</span></label><input type="range" min="1" max="100" value="10" oninput="updateCalc('size',this.value)"></div>
+        <div class="lab-slider-wrap"><label><span data-zh="台達節能設備導入率%" data-en="Delta Energy Equipment Adoption%">台達節能設備導入率%</span><span id="adoptVal">50%</span></label><input type="range" min="0" max="100" value="50" oninput="updateCalc('adopt',this.value)"></div>
+      </div>
+      <div style="margin-top:16px;background:var(--bg3);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:4px" data-zh="預估年度節電量" data-en="Estimated Annual Energy Savings">預估年度節電量</div>
+        <div id="savingsDisplay" style="font-size:2rem;font-weight:900;color:var(--neon);font-family:var(--font-mono)">3,500 MWh</div>
+        <div style="font-size:0.7rem;color:var(--text3);margin-top:4px" data-zh="相當於減少 1,750 公噸CO₂排放" data-en="Equivalent to reducing 1,750 tonnes CO₂ emissions">相當於減少 1,750 公噸CO₂排放</div>
+      </div>
+    </div>
+
+    <div class="lab-card ai-box" style="grid-column: 1 / -1; margin-top: 0;">
+      <div class="lab-title">✨ <span data-zh="AI 突發市場事件模擬器" data-en="AI Market Shock Simulator">AI 突發市場事件模擬器</span></div>
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px" data-zh="輸入一個假想的市場突發事件，Gemini AI 將扮演高階策略顧問，為您分析該事件對台達電子的潛在衝擊與策略應對。" data-en="Enter a hypothetical market event, and Gemini AI will act as an executive strategy consultant to analyze the potential impact and response strategies for Delta Electronics.">輸入一個假想的市場突發事件，Gemini AI 將扮演高階策略顧問，為您分析該事件對台達電子的潛在衝擊與策略應對。</p>
+      <textarea id="aiShockInput" class="ai-input" rows="2" placeholder="e.g., 全球銅價飆漲3倍... / e.g., Global copper prices triple..." data-zh="描述一個市場事件..." data-en="Describe a market event..."></textarea>
+      <button class="ai-btn" id="aiShockBtn" onclick="simulateMarketShock()">
+        <span>✨</span>
+        <span id="aiShockBtnText" data-zh="進行顧問分析" data-en="Analyze Impact">進行顧問分析</span>
+      </button>
+      <div id="aiShockOutput" class="ai-output" style="display:none; background:rgba(0,0,0,0.2);"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DATA SOURCES -->
+<div id="section-sources" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="學術參考" data-en="ACADEMIC REFERENCES">學術參考</div>
+    <h1 class="sec-title" data-zh="資料來源" data-en="Data <span class='accent'>Sources</span>">資料來源</h1>
+  </div>
+  <div class="source-list">
+    <div class="source-item" onclick="window.open('https://www.deltaww.com/zh-TW/index','_blank')"><div class="source-icon">🌐</div><div class="source-info"><h4 data-zh="台達電子官方網站" data-en="Delta Electronics Official Website">台達電子官方網站</h4><p data-zh="公司簡介、產品資訊、最新公告與投資人關係" data-en="Company overview, product information, announcements and investor relations">公司簡介、產品資訊、最新公告與投資人關係</p><a href="https://www.deltaww.com/zh-TW/index" target="_blank">www.deltaww.com</a></div></div><div class="source-item" onclick="window.open('https://www.deltaww.com/en-US/investors/financials#financial-reports','_blank')"><div class="source-icon">📊</div><div class="source-info"><h4 data-zh="台達電子年度報告 (2022-2024)" data-en="Delta Electronics Annual Reports (2022-2024)">台達電子年度報告 (2022-2024)</h4><p data-zh="完整財務數據、業務概況、管理層討論與分析" data-en="Complete financial data, business overview, management discussion and analysis">完整財務數據、業務概況、管理層討論與分析</p><a href="https://www.deltaww.com/en-US/investors/financials#financial-reports" target="_blank">deltaww.com/annual-report</a></div></div><div class="source-item" onclick="window.open('https://www.deltaww.com/en-US/sustainability/resource-center/esg-reports','_blank')"><div class="source-icon">🌱</div><div class="source-info"><h4 data-zh="台達電子ESG報告" data-en="Delta Electronics ESG Report">台達電子ESG報告</h4><p data-zh="永續發展策略、環境績效、社會責任、公司治理揭露" data-en="Sustainability strategy, environmental performance, social responsibility, governance disclosure">永續發展策略、環境績效、社會責任、公司治理揭露</p><a href="https://www.deltaww.com/en-US/sustainability/resource-center/esg-reports" target="_blank">deltaww.com/esg-report</a></div></div><div class="source-item" onclick="window.open('https://www.ibisworld.com','_blank')"><div class="source-icon">🔬</div><div class="source-info"><h4 data-zh="IBISWorld — 電力設備製造產業報告" data-en="IBISWorld — Electrical Equipment Manufacturing Industry Report">IBISWorld — 電力設備製造產業報告</h4><p data-zh="產業市場規模、競爭格局、成長驅動因素分析" data-en="Industry market size, competitive landscape, growth driver analysis">產業市場規模、競爭格局、成長驅動因素分析</p><a href="https://www.ibisworld.com" target="_blank">ibisworld.com</a></div></div><div class="source-item" onclick="window.open('https://about.bnef.com','_blank')"><div class="source-icon">📈</div><div class="source-info"><h4 data-zh="Bloomberg NEF — 能源轉型展望 2024" data-en="Bloomberg NEF — Energy Transition Outlook 2024">Bloomberg NEF — 能源轉型展望 2024</h4><p data-zh="全球再生能源市場預測、EV市場成長數據" data-en="Global renewable energy market forecasts, EV market growth data">全球再生能源市場預測、EV市場成長數據</p><a href="https://about.bnef.com" target="_blank">bnef.com</a></div></div><div class="source-item" onclick="window.open('https://www.hbs.edu/faculty/Pages/item.aspx?num=195','_blank')"><div class="source-icon">📚</div><div class="source-info"><h4 data-zh="Porter, M.E. (1985). Competitive Advantage" data-en="Porter, M.E. (1985). Competitive Advantage">Porter, M.E. (1985). Competitive Advantage</h4><p data-zh="價值鏈理論核心參考文獻 — Free Press, New York" data-en="Core reference for Value Chain Theory — Free Press, New York">價值鏈理論核心參考文獻 — Free Press, New York</p><a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=195" target="_blank">Academic Reference</a></div></div><div class="source-item" onclick="window.open('https://www.hbs.edu/faculty/Pages/item.aspx?num=6423','_blank')"><div class="source-icon">🎓</div><div class="source-info"><h4 data-zh="Brandenburger & Nalebuff (1996). Co-opetition" data-en="Brandenburger & Nalebuff (1996). Co-opetition">Brandenburger & Nalebuff (1996). Co-opetition</h4><p data-zh="價值網分析PARTS模型理論基礎 — Currency Doubleday" data-en="Theoretical foundation for Value Net PARTS model — Currency Doubleday">價值網分析PARTS模型理論基礎 — Currency Doubleday</p><a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=6423" target="_blank">Academic Reference</a></div></div><div class="source-item" onclick="window.open('https://www.twse.com.tw','_blank')"><div class="source-icon">🏢</div><div class="source-info"><h4 data-zh="台灣證券交易所 — 台達電子股票資料" data-en="Taiwan Stock Exchange — Delta Electronics Stock Data">台灣證券交易所 — 台達電子股票資料</h4><p data-zh="股價走勢、法人持股比例、重大訊息揭露 (代碼:2308)" data-en="Stock price trends, institutional shareholding, material disclosures (Code: 2308)">股價走勢、法人持股比例、重大訊息揭露 (代碼:2308)</p><a href="https://www.twse.com.tw" target="_blank">twse.com.tw</a></div></div></div>
+
+  <!-- AI TOOLS USED -->
+  <div style="margin-top:40px">
+    <div class="sec-tag" style="margin-bottom:16px" data-zh="AI 工具應用" data-en="AI TOOLS USED">AI TOOLS USED</div>
+    <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px" data-zh="本專題使用之 AI 工具" data-en="AI Tools Used in This Project"><span data-zh="本專題使用之 " data-en="AI Tools Used in "></span><span class="accent" data-zh="AI 工具" data-en="This Project"></span></h3>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:20px;line-height:1.6" data-zh="本研究專題於研究、分析、內容生成與視覺呈現各階段，善用以下 AI 工具輔助完成。" data-en="The following AI tools were utilized throughout the research, analysis, content generation, and visual presentation stages of this project.">本研究專題於研究、分析、內容生成與視覺呈現各階段，善用以下 AI 工具輔助完成。</p>
+    <div class="card-grid card-grid-4" style="gap:14px">
+
+      <div class="card" style="border-color:rgba(210,101,54,0.4);padding:18px;cursor:pointer" onclick="window.open('https://claude.ai','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">🤖</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">Claude</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="Anthropic 出品，用於深度研究、框架分析、內容撰寫與網頁程式碼生成。" data-en="By Anthropic. Used for in-depth research, framework analysis, content writing, and webpage code generation.">By Anthropic. Used for in-depth research, framework analysis, content writing, and webpage code generation.</div>
+        <a href="https://claude.ai" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">claude.ai ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(16,163,127,0.4);padding:18px;cursor:pointer" onclick="window.open('https://chat.openai.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">💬</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">ChatGPT</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="OpenAI 出品，用於資料摘要、分析構思與文字潤稿。" data-en="By OpenAI. Used for data summarization, analytical ideation, and text refinement.">By OpenAI. Used for data summarization, analytical ideation, and text refinement.</div>
+        <a href="https://chat.openai.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">chat.openai.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(66,133,244,0.4);padding:18px;cursor:pointer" onclick="window.open('https://gemini.google.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">✨</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">Gemini</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="Google 出品，用於多模態資訊查詢與產業趨勢分析。" data-en="By Google. Used for multimodal information retrieval and industry trend analysis.">By Google. Used for multimodal information retrieval and industry trend analysis.</div>
+        <a href="https://gemini.google.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">gemini.google.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(66,133,244,0.4);padding:18px;cursor:pointer" onclick="window.open('https://aistudio.google.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">🧪</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">Google AI Studio</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="用於快速原型測試、Prompt 設計與 AI 互動功能開發。" data-en="Used for rapid prototyping, prompt engineering, and AI interactive feature development.">Used for rapid prototyping, prompt engineering, and AI interactive feature development.</div>
+        <a href="https://aistudio.google.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">aistudio.google.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(0,120,212,0.4);padding:18px;cursor:pointer" onclick="window.open('https://copilot.microsoft.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">🪟</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">Copilot</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="Microsoft 出品，用於 Office 文件整合、圖表生成與即時資訊查詢。" data-en="By Microsoft. Used for Office document integration, chart generation, and real-time information queries.">By Microsoft. Used for Office document integration, chart generation, and real-time information queries.</div>
+        <a href="https://copilot.microsoft.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">copilot.microsoft.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(100,180,255,0.4);padding:18px;cursor:pointer" onclick="window.open('https://www.d-id.com/','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">🎥</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">D-ID</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="用於 AI 數位人生成與語音簡報影片製作，強化視覺呈現效果。" data-en="Used for AI digital avatar generation and voice presentation video production to enhance visual delivery.">Used for AI digital avatar generation and voice presentation video production to enhance visual delivery.</div>
+        <a href="https://www.d-id.com/" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">d-id.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(234,67,53,0.4);padding:18px;cursor:pointer" onclick="window.open('https://notebooklm.google.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">📓</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">NotebookLM</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="Google 出品，用於文件摘要、跨來源知識整合與研究筆記生成。" data-en="By Google. Used for document summarization, cross-source knowledge synthesis, and research note generation.">By Google. Used for document summarization, cross-source knowledge synthesis, and research note generation.</div>
+        <a href="https://notebooklm.google.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">notebooklm.google.com ↗</a>
+      </div>
+
+      <div class="card" style="border-color:rgba(66,133,244,0.4);padding:18px;cursor:pointer" onclick="window.open('https://www.google.com','_blank')">
+        <div style="font-size:1.6rem;margin-bottom:8px">🔍</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:4px">Google Search AI Mode</div>
+        <div style="font-size:0.75rem;color:var(--text2);line-height:1.5" data-zh="用於 AI 增強搜尋、快速事實查核與即時市場資訊蒐集。" data-en="Used for AI-enhanced search, rapid fact-checking, and real-time market information gathering.">Used for AI-enhanced search, rapid fact-checking, and real-time market information gathering.</div>
+        <a href="https://www.google.com" target="_blank" style="display:inline-block;margin-top:8px;color:var(--delta-cyan);font-size:0.7rem;font-family:var(--font-mono);text-decoration:none">google.com ↗</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- LEARNING JOURNEY -->
+<div id="section-journey" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="研究歷程" data-en="RESEARCH PROCESS">研究歷程</div>
+    <h1 class="sec-title"><span data-zh="學習" data-en="Learning ">學習</span><span class="accent" data-zh="旅程" data-en="Journey">旅程</span></h1>
+    <p class="sec-desc" data-zh="這不只是一份報告——而是六個人從懵懂到清晰、從資料到洞察的真實成長故事。" data-en="This is not just a report — it is a real story of six people growing from confusion to clarity, from raw data to genuine insight.">這不只是一份報告——而是六個人從懵懂到清晰、從資料到洞察的真實成長故事。</p>
+  </div>
+
+  <!-- Opening narrative banner -->
+  <div style="background:linear-gradient(135deg,rgba(0,86,168,0.2),rgba(0,180,216,0.1));border:1px solid var(--border);border-left:4px solid var(--delta-cyan);border-radius:var(--radius);padding:28px 32px;margin-bottom:40px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20px;right:20px;font-size:6rem;opacity:0.04;font-weight:900;font-family:var(--font-mono)">STORY</div>
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--delta-cyan);margin-bottom:10px" data-zh="序幕" data-en="PROLOGUE">PROLOGUE</div>
+    <p style="font-size:1rem;line-height:1.85;color:var(--text);font-weight:400;max-width:820px" data-zh="學期開始時，我們六個人坐在一起，面對一張空白的 A4 紙。駱世民教授給了我們一個任務：深度剖析一家企業，用學過的所有框架去理解它的過去、現在與未來。我們選擇了台達電子——一家我們以為只是做「電源供應器」的公司。我們錯了，而這個錯誤，是整段旅程中最好的起點。" data-en="At the start of the semester, the six of us sat together facing a blank sheet of paper. Prof. Shihmin Lo gave us one task: deeply analyze a company — use every framework we had learned to understand its past, present, and future. We chose Delta Electronics, a company we assumed just made power supplies. We were wrong. And that wrong assumption turned out to be the best possible starting point for everything that followed.">At the start of the semester, the six of us sat together facing a blank sheet of paper. Prof. Shihmin Lo gave us one task: deeply analyze a company — use every framework we had learned to understand its past, present, and future. We chose Delta Electronics, a company we assumed just made power supplies. We were wrong. And that wrong assumption turned out to be the best possible starting point for everything that followed.</p>
+  </div>
+
+  <div class="journey-path">
+
+    <!-- STOP 01 -->
+    <div class="journey-stop">
+      <div class="j-num">01</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="🌱 第一次相遇：我們低估了它" data-en="🌱 First Encounter: We Underestimated It">🌱 First Encounter: We Underestimated It</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.3);color:#2ECC71" data-zh="😮 驚訝" data-en="😮 Surprise">😮 Surprise</span>
+        </div>
+        <div class="j-desc" data-zh="台達電子成立於1971年——比我們任何一個人的父母都年長。當我們第一次打開它的年報，以為會看到一份無聊的製造業財報，卻發現裡頭藏著一個讓人意外的故事：這家公司在過去五年，每年節省全球超過560億度電，相當於台灣一整年用電量的1.5倍。我們沉默了幾秒鐘。「等等，它不只是賣電源的？」這個問題，開啟了接下來所有的探索。" data-en="Delta Electronics was founded in 1971 — older than any of our parents. When we first opened its annual report, we expected a dry manufacturing earnings document. Instead, we found a quietly astonishing story: this company had been saving the world over 56 billion kWh of electricity every year — equivalent to 1.5 times Taiwan's total annual power consumption. We sat in silence for a few seconds. 'Wait — it doesn't just sell power supplies?' That single question unlocked everything that came after.">Delta Electronics was founded in 1971 — older than any of our parents. When we first opened its annual report, we expected a dry manufacturing earnings document. Instead, we found a quietly astonishing story: this company had been saving the world over 56 billion kWh of electricity every year — equivalent to 1.5 times Taiwan's total annual power consumption. We sat in silence for a few seconds. 'Wait — it doesn't just sell power supplies?' That single question unlocked everything that came after.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：Google Search AI Mode、NotebookLM — 快速掃描年報與 ESG 報告，建立初步知識地圖。" data-en="📖 Tools used: Google Search AI Mode, NotebookLM — rapid scanning of annual reports and ESG documents to build our first knowledge map.">📖 Tools used: Google Search AI Mode, NotebookLM — rapid scanning of annual reports and ESG documents to build our first knowledge map.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP 02 -->
+    <div class="journey-stop">
+      <div class="j-num">02</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="🗺️ 畫出地圖：框架讓我們看見結構" data-en="🗺️ Drawing the Map: Frameworks Revealed the Structure">🗺️ Drawing the Map: Frameworks Revealed the Structure</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(74,144,217,0.12);border:1px solid rgba(74,144,217,0.3);color:#4A90D9" data-zh="🧭 摸索" data-en="🧭 Navigating">🧭 Navigating</span>
+        </div>
+        <div class="j-desc" data-zh="有了初步認識，我們開始為這次分析搭建骨架。PESTEL 幫我們看見台達身處的宏觀戰場——地緣政治、能源轉型、AI 浪潮，每一個外力都在重塑它的機會與威脅。Porter 的價值鏈幫我們拆解台達如何從一顆銅片變成一台伺服器電源。而 Brandenburger 的價值網路，讓我們第一次理解：台達的競爭者，有時候也是它最重要的合作夥伴。分工開始了：有人負責財務，有人追蹤 ESG，有人研究產業地圖，有人開始寫程式。六個人，六條線，朝著同一個方向拉。" data-en="With our initial understanding in place, we began building the skeleton of our analysis. PESTEL revealed the macro battlefield Delta operates in — geopolitical tension, energy transition, the AI wave — every external force reshaping Delta's opportunities and threats. Porter's Value Chain helped us trace how Delta transforms raw copper into a server power supply. And Brandenburger's Value Net gave us our first real insight: Delta's competitors are sometimes its most important collaborators. The division of labor began — one person on financials, one on ESG, one mapping the industry landscape, one writing code. Six people, six threads, pulling in the same direction.">With our initial understanding in place, we began building the skeleton of our analysis. PESTEL revealed the macro battlefield Delta operates in — geopolitical tension, energy transition, the AI wave — every external force reshaping Delta's opportunities and threats. Porter's Value Chain helped us trace how Delta transforms raw copper into a server power supply. And Brandenburger's Value Net gave us our first real insight: Delta's competitors are sometimes its most important collaborators. The division of labor began — one person on financials, one on ESG, one mapping the industry landscape, one writing code. Six people, six threads, pulling in the same direction.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：Claude、ChatGPT — 協助將學術框架快速套用至台達的實際案例，加速思維結構化。" data-en="📖 Tools used: Claude, ChatGPT — helped rapidly apply academic frameworks to Delta's real-world case, accelerating structured thinking.">📖 Tools used: Claude, ChatGPT — helped rapidly apply academic frameworks to Delta's real-world case, accelerating structured thinking.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP 03 -->
+    <div class="journey-stop">
+      <div class="j-num">03</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="⚡ 最難熬的那兩週：數據不說謊，但需要讀懂它" data-en="⚡ The Hardest Two Weeks: Data Doesn't Lie, But You Have to Learn to Read It">⚡ The Hardest Two Weeks: Data Doesn't Lie, But You Have to Learn to Read It</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);color:#FF6B35" data-zh="😤 煎熬" data-en="😤 Struggle">😤 Struggle</span>
+        </div>
+        <div class="j-desc" data-zh="數據收集階段是整段旅程中最消耗心力的時刻。2020 到 2024 年的財報、ESG 指標、Bloomberg 產業報告、台灣證交所資料——光是把數字對齊就花了我們快一週。有一天凌晨，負責財務分析的成員發現：台達的毛利率在 2022 年突然下滑，和它對外宣稱的「穩健成長」似乎有出入。我們陷入了困惑——直到我們讀懂了那一年全球通膨與原物料成本暴漲的背景，才理解：這不是台達的問題，而是整個產業的挑戰，而台達的恢復速度，其實比競爭者快得多。數據的背後，有故事。" data-en="The data collection phase was the most exhausting stretch of the entire journey. Financial reports from 2020 to 2024, ESG metrics, Bloomberg industry data, Taiwan Stock Exchange filings — just getting the numbers aligned took nearly a week. Late one night, our financial analyst noticed something unsettling: Delta's gross margin had dipped sharply in 2022, seemingly at odds with the company's narrative of steady growth. We were confused — until we understood the context of that year's global inflation and raw material cost surges. The drop wasn't Delta's failure; it was an industry-wide challenge. And Delta's recovery speed was actually faster than most of its peers. Behind every number, there is a story.">The data collection phase was the most exhausting stretch of the entire journey. Financial reports from 2020 to 2024, ESG metrics, Bloomberg industry data, Taiwan Stock Exchange filings — just getting the numbers aligned took nearly a week. Late one night, our financial analyst noticed something unsettling: Delta's gross margin had dipped sharply in 2022, seemingly at odds with the company's narrative of steady growth. We were confused — until we understood the context of that year's global inflation and raw material cost surges. The drop wasn't Delta's failure; it was an industry-wide challenge. And Delta's recovery speed was actually faster than most of its peers. Behind every number, there is a story.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：Gemini、Google AI Studio、Copilot — 大量數據交叉驗證，圖表草稿快速生成與修訂。" data-en="📖 Tools used: Gemini, Google AI Studio, Copilot — cross-validating large datasets, rapidly drafting and revising charts.">📖 Tools used: Gemini, Google AI Studio, Copilot — cross-validating large datasets, rapidly drafting and revising charts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP 04 -->
+    <div class="journey-stop">
+      <div class="j-num">04</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="💡 那個讓我們安靜下來的洞察" data-en="💡 The Insight That Made Us Go Quiet">💡 The Insight That Made Us Go Quiet</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.25);color:var(--neon)" data-zh="✨ 頓悟" data-en="✨ Eureka">✨ Eureka</span>
+        </div>
+        <div class="j-desc" data-zh="在一次線上討論中，負責 ESG 研究的成員說了一句話，讓整個對話停了下來：「台達的節能產品，本身就是它的 ESG 策略。它不需要另外做 ESG，因為它賣的每一件產品，都在幫客戶省電、減碳。」這是我們整個研究的核心頓悟——台達不是一家「做完本業之後再顧環保」的企業，而是一家把永續使命直接編進商業模式裡的公司。節能即獲利。這個洞察重新定義了我們看待它所有競爭優勢的方式，也讓我們明白：真正的策略護城河，不是靠廣告說出來的，而是靠產品本身堆出來的。" data-en="During one of our online discussions, the member leading ESG research said something that stopped the conversation cold: 'Delta's energy-efficient products are its ESG strategy. It doesn't need to do ESG on the side, because every product it sells helps customers save electricity and cut carbon.' That was the central breakthrough of our entire research — Delta is not a company that does business first and then worries about sustainability. It is a company that has baked its sustainability mission directly into its business model. Energy savings equal profit. This insight reframed how we saw every single competitive advantage Delta holds, and it taught us something bigger: the deepest strategic moats are not built through advertising — they are built through the product itself.">During one of our online discussions, the member leading ESG research said something that stopped the conversation cold: 'Delta's energy-efficient products are its ESG strategy. It doesn't need to do ESG on the side, because every product it sells helps customers save electricity and cut carbon.' That was the central breakthrough of our entire research — Delta is not a company that does business first and then worries about sustainability. It is a company that has baked its sustainability mission directly into its business model. Energy savings equal profit. This insight reframed how we saw every single competitive advantage Delta holds, and it taught us something bigger: the deepest strategic moats are not built through advertising — they are built through the product itself.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：Claude、NotebookLM — 整合分散的研究筆記，幫助我們找到貫穿全局的核心論點。" data-en="📖 Tools used: Claude, NotebookLM — synthesizing scattered research notes and helping us surface the through-line argument.">📖 Tools used: Claude, NotebookLM — synthesizing scattered research notes and helping us surface the through-line argument.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP 05 -->
+    <div class="journey-stop">
+      <div class="j-num">05</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="🎨 把複雜變成美麗：視覺化的挑戰" data-en="🎨 Making Complexity Beautiful: The Visualization Challenge">🎨 Making Complexity Beautiful: The Visualization Challenge</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(155,89,182,0.12);border:1px solid rgba(155,89,182,0.3);color:#9B59B6" data-zh="🎭 創作" data-en="🎭 Creating">🎭 Creating</span>
+        </div>
+        <div class="j-desc" data-zh="分析完成了，但我們面對一個新的挑戰：如何讓一個從來沒讀過台達年報的人，在十分鐘內理解我們花了幾週得出的結論？負責網頁開發的成員決定跳脫傳統 PowerPoint，打造一個互動式網站——雙語切換、深淺模式、語音導覽、即時圖表、AI 職涯對話。每一個功能背後，都是無數次的測試與修改。最困難的不是寫程式，而是決定「哪些資訊應該被看見、哪些應該被收起來」。好的設計，是學會說『不』。" data-en="The analysis was done — but we faced a new challenge: how do you help someone who has never read a Delta annual report understand in ten minutes what took us weeks to figure out? The member handling web development decided to break away from traditional PowerPoint and build an interactive site instead — bilingual toggle, dark and light mode, audio narration, live charts, AI career dialogue. Behind each feature were countless rounds of testing and revision. The hardest part was not writing code — it was deciding which information should be visible and which should be tucked away. Good design, we learned, is really just the practice of saying no.">The analysis was done — but we faced a new challenge: how do you help someone who has never read a Delta annual report understand in ten minutes what took us weeks to figure out? The member handling web development decided to break away from traditional PowerPoint and build an interactive site instead — bilingual toggle, dark and light mode, audio narration, live charts, AI career dialogue. Behind each feature were countless rounds of testing and revision. The hardest part was not writing code — it was deciding which information should be visible and which should be tucked away. Good design, we learned, is really just the practice of saying no.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：Claude、D-ID、Google AI Studio — 程式碼生成、AI 數位人影片製作、UI 互動功能開發。" data-en="📖 Tools used: Claude, D-ID, Google AI Studio — code generation, AI avatar video production, UI interaction development.">📖 Tools used: Claude, D-ID, Google AI Studio — code generation, AI avatar video production, UI interaction development.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP 06 -->
+    <div class="journey-stop">
+      <div class="j-num">06</div>
+      <div class="j-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+          <div class="j-title" data-zh="🎤 站上台的那一刻：我們準備好了" data-en="🎤 The Moment We Stood Up to Present: We Were Ready">🎤 The Moment We Stood Up to Present: We Were Ready</div>
+          <span style="font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.3);color:#2ECC71" data-zh="🌟 自信" data-en="🌟 Confidence">🌟 Confidence</span>
+        </div>
+        <div class="j-desc" data-zh="簡報當天，我們沒有緊張——或者說，我們把緊張轉化成了一種準備好的感覺。我們知道每一張投影片背後的故事，知道每一個數字是怎麼來的，也知道當有人問「為什麼台達能在這麼多競爭者中脫穎而出？」我們的答案。台達用了五十年累積這個答案；我們用了一個學期去理解它。這本身，也是一種致敬。" data-en="On the day of the presentation, we were not nervous — or more precisely, we had converted the nervousness into a feeling of readiness. We knew the story behind every slide. We knew where every number came from. And we knew exactly what to say when someone asked, 'Why does Delta stand out among so many competitors?' Delta spent fifty years building that answer. We spent one semester trying to understand it. In its own way, that felt like a tribute.">On the day of the presentation, we were not nervous — or more precisely, we had converted the nervousness into a feeling of readiness. We knew the story behind every slide. We knew where every number came from. And we knew exactly what to say when someone asked, 'Why does Delta stand out among so many competitors?' Delta spent fifty years building that answer. We spent one semester trying to understand it. In its own way, that felt like a tribute.</div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,180,216,0.06);border-radius:8px;border-left:3px solid var(--delta-cyan)">
+          <div style="font-size:0.72rem;color:var(--text3);font-style:italic" data-zh="📖 使用工具：D-ID、ChatGPT、Gemini — 簡報稿潤飾、AI 主播影片最終製作與多語校對。" data-en="📖 Tools used: D-ID, ChatGPT, Gemini — presentation script refinement, final AI anchor video production, multilingual proofreading.">📖 Tools used: D-ID, ChatGPT, Gemini — presentation script refinement, final AI anchor video production, multilingual proofreading.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Closing reflection -->
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <div style="font-size:1.4rem;margin-bottom:10px">🧠</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:8px" data-zh="我們學到最重要的事" data-en="The Most Important Thing We Learned">The Most Important Thing We Learned</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.65" data-zh="企業分析框架不是目的，是鏡頭。它讓你看見原本看不見的東西。真正的挑戰，是在所有數據與理論之後，問自己：這家公司的靈魂是什麼？" data-en="Business analysis frameworks are not the destination — they are lenses. They help you see what you couldn't see before. The real challenge, after all the data and theory, is asking yourself: what is the soul of this company?">Business analysis frameworks are not the destination — they are lenses. They help you see what you couldn't see before. The real challenge, after all the data and theory, is asking yourself: what is the soul of this company?</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <div style="font-size:1.4rem;margin-bottom:10px">🤝</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:8px" data-zh="關於團隊合作" data-en="On Working as a Team">On Working as a Team</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.65" data-zh="六個人做一份報告，最大的風險是六份報告拼在一起。我們學到：真正的協作不是分工，而是每個人都理解整體，然後在自己的部分做到最好。" data-en="Six people working on one report — the biggest risk is ending up with six reports stapled together. What we learned: real collaboration isn't just dividing tasks. It is making sure everyone understands the whole, so each person can do their part with that bigger picture in mind.">Six people working on one report — the biggest risk is ending up with six reports stapled together. What we learned: real collaboration isn't just dividing tasks. It is making sure everyone understands the whole, so each person can do their part with that bigger picture in mind.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <div style="font-size:1.4rem;margin-bottom:10px">🔭</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--delta-cyan);margin-bottom:8px" data-zh="後續值得思考的問題" data-en="Questions We're Taking With Us">Questions We're Taking With Us</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.65" data-zh="台達能否在 AI 基礎設施的超級週期中繼續維持技術領先？當中國競爭者快速追趕，台達的護城河還能撐多久？這些問題，我們還沒有答案——但我們知道怎麼繼續問下去了。" data-en="Can Delta maintain its technology lead through the AI infrastructure supercycle? As Chinese competitors close the gap, how long will Delta's moat hold? We don't have answers yet — but we now know how to keep asking the right questions.">Can Delta maintain its technology lead through the AI infrastructure supercycle? As Chinese competitors close the gap, how long will Delta's moat hold? We don't have answers yet — but we now know how to keep asking the right questions.</div>
+    </div>
+  </div>
+
+  <!-- Closing quote -->
+  <div style="margin-top:32px;text-align:center;padding:32px;background:linear-gradient(135deg,rgba(0,86,168,0.15),rgba(0,180,216,0.08));border:1px solid var(--border);border-radius:var(--radius)">
+    <div style="font-size:2rem;margin-bottom:12px;opacity:0.4">"</div>
+    <p style="font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.8;max-width:700px;margin:0 auto" data-zh="「最好的分析，不是告訴別人答案，而是讓別人看見他們從未注意到的問題。」" data-en="&ldquo;The best analysis doesn't give people answers — it helps them see questions they never thought to ask.&rdquo;">&ldquo;The best analysis doesn't give people answers — it helps them see questions they never thought to ask.&rdquo;</p>
+    <div style="margin-top:12px;font-size:0.75rem;color:var(--text3);letter-spacing:1px" data-zh="— 本研究團隊，2026" data-en="— Research Team, 2026">— Research Team, 2026</div>
+  </div>
+
+</div>
+
+<!-- GLOSSARY -->
+<div id="section-glossary" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="商業術語" data-en="BUSINESS TERMS">商業術語</div>
+    <h1 class="sec-title" data-zh="詞彙表" data-en="<span class='accent'>Glossary</span>">詞彙表</h1>
+  </div>
+  <input type="text" class="glossary-search" id="glossarySearch" placeholder="搜尋術語... / Search terms..." oninput="filterGlossary(this.value)" aria-label="Search glossary">
+  <div class="glossary-list" id="glossaryList"></div>
+</div>
+
+<!-- CONCLUSION -->
+<div id="section-conclusion" class="section">
+  <div class="sec-header">
+    <div class="sec-tag" data-zh="策略總結" data-en="STRATEGIC CONCLUSION">策略總結</div>
+    <h1 class="sec-title" data-zh="結論" data-en="<span class='accent'>Conclusion</span>">結論</h1>
+  </div>
+  <div class="conclusion-hero">
+    <h2 data-zh="台達電子：智慧能源時代的戰略贏家" data-en="Delta Electronics: Strategic Winner in the Smart Energy Era">台達電子：智慧能源時代的戰略贏家</h2>
+    <p data-zh="台達電子以超過50年的深厚技術積累，配合精準的ESG策略布局，正處於全球能源轉型與AI基礎設施建設兩大超級週期的核心交叉點。其長期競爭優勢來自於技術領先、ESG品牌、客戶黏性三位一體的策略護城河。" data-en="With over 50 years of deep technical accumulation combined with precise ESG strategic positioning, Delta Electronics stands at the core intersection of two mega-cycles: global energy transition and AI infrastructure construction. Its long-term competitive advantage stems from a tri-part strategic moat of technology leadership, ESG brand, and customer stickiness.">台達電子以超過50年的深厚技術積累，配合精準的ESG策略布局，正處於全球能源轉型與AI基礎設施建設兩大超級週期的核心交叉點。其長期競爭優勢來自於技術領先、ESG品牌、客戶黏性三位一體的策略護城河。</p>
+  </div>
+  <div class="rec-grid">
+    <div class="rec-card"><div class="rec-icon">🔮</div><div class="rec-title" data-zh="未來競爭力" data-en="Future Competitiveness">未來競爭力</div><div class="rec-desc" data-zh="台達在AI伺服器電源、液冷技術、800V電動車充電等領域的技術儲備，將支撐未來5-10年的持續成長。" data-en="Delta's technical reserves in AI server power, liquid cooling, and 800V EV charging will support continued growth for the next 5-10 years.">台達在AI伺服器電源、液冷技術、800V電動車充電等領域的技術儲備，將支撐未來5-10年的持續成長。</div></div>
+    <div class="rec-card"><div class="rec-icon">🌿</div><div class="rec-title" data-zh="永續競爭優勢" data-en="Sustainability Advantage">永續競爭優勢</div><div class="rec-desc" data-zh="ESG整合程度越高，採購商與大型客戶的議價能力越受限，台達的綠色溢價護城河持續擴大。" data-en="Higher ESG integration limits large customers' bargaining power, and Delta's green premium moat continues to expand.">ESG整合程度越高，採購商與大型客戶的議價能力越受限，台達的綠色溢價護城河持續擴大。</div></div>
+    <div class="rec-card"><div class="rec-icon">⚠️</div><div class="rec-title" data-zh="主要風險" data-en="Key Risks">主要風險</div><div class="rec-desc" data-zh="地緣政治風險（台海）、中國競爭者快速跟進、客戶集中度偏高（前十大客戶佔比超過40%）。" data-en="Geopolitical risks (Taiwan Strait), rapid Chinese competitor catch-up, high customer concentration (top 10 exceed 40%).">地緣政治風險（台海）、中國競爭者快速跟進、客戶集中度偏高（前十大客戶佔比超過40%）。</div></div>
+    <div class="rec-card"><div class="rec-icon">💡</div><div class="rec-title" data-zh="策略建議" data-en="Strategic Recommendations">策略建議</div><div class="rec-desc" data-zh="建議加速印度、東南亞製造基地布局分散供應鏈風險；強化軟體即服務(SaaS)轉型提升毛利率。" data-en="Recommend accelerating India and SEA manufacturing base expansion to diversify supply chain; strengthen SaaS transformation to improve margins.">建議加速印度、東南亞製造基地布局分散供應鏈風險；強化軟體即服務(SaaS)轉型提升毛利率。</div></div>
+    <div class="rec-card"><div class="rec-icon">🎯</div><div class="rec-title" data-zh="長期增長機遇" data-en="Long-term Growth Opportunities">長期增長機遇</div><div class="rec-desc" data-zh="AI算力基礎設施與潔淨能源轉型的雙驅動力，預計到2030年可為台達創造超過2000億新台幣的新增市場空間。" data-en="The dual-drive of AI computing infrastructure and clean energy transition is projected to create over 200 billion NTD in new market space for Delta by 2030.">AI算力基礎設施與潔淨能源轉型的雙驅動力，預計到2030年可為台達創造超過2000億新台幣的新增市場空間。</div></div>
+    <div class="rec-card"><div class="rec-icon">📊</div><div class="rec-title" data-zh="研究結語" data-en="Research Conclusion">研究結語</div><div class="rec-desc" data-zh="台達電子是罕見的將商業邏輯與永續使命高度統一的企業，其「節能即獲利」的商業模式在當前時代具有極強的生命力。" data-en="Delta Electronics is a rare company that highly unifies business logic with sustainability mission. Its 'energy savings equals profit' business model has extremely strong vitality in the current era.">台達電子是罕見的將商業邏輯與永續使命高度統一的企業，其「節能即獲利」的商業模式在當前時代具有極強的生命力。</div></div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo">Δ Delta Electronics 分析報告</div>
+      <div class="footer-instructor">👨‍🏫 <span data-zh="指導教授：駱世民教授 Prof. Shihmin Lo" data-en="Instructor: Prof. Shihmin Lo">指導教授：駱世民教授 Prof. Shihmin Lo</span></div>
+      <div class="footer-credit" data-zh="© 2026 新興產業趨勢與商業模式 | 台達電子深度剖析" data-en="© 2026 Industry Trends and Business Models(ITBM) Group Project | Delta Electronics Deep Dive">© 2026 新興產業趨勢與商業模式 | 台達電子深度剖析</div>
+    </div>
+    <div class="footer-center">
+      <div data-zh="以學術用途製作，僅供課程呈現使用" data-en="Created for academic purposes, for course presentation only">以學術用途製作，僅供課程呈現使用</div>
+    </div>
+    <div class="footer-right">
+      <div class="social-icons">
+        <a class="soc-btn" title="LinkedIn" href="https://www.linkedin.com/company/delta-electronics/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">in</a>
+        <a class="soc-btn" title="Facebook" href="https://www.facebook.com/delta.electronics.group/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a class="soc-btn" title="YouTube" href="https://www.youtube.com/channel/UC8X-TedwXTbSXBGmjGhjL0g" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0A0E1A"/></svg>
+        </a>
+      </div>
+      <button class="footer-btn" onclick="toggleLang()" data-zh="🌐 切換語言 EN" data-en="🌐 Switch 中文">🌐 切換語言 EN</button>
+      <button class="footer-btn" onclick="scrollToTop()" data-zh="↑ 回頂部" data-en="↑ Back to Top">↑ 回頂部</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== STATE ====================
+let currentLang = localStorage.getItem('delta_lang') || 'zh';
+let currentTheme = localStorage.getItem('delta_theme') || 'dark';
+let currentSection = 'hero';
+let audioPanel = false;
+let utterance = null;
+let chartsInit = {};
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme(currentTheme);
+  applyLang(currentLang);
+  buildTeam();
+  buildPestel();
+  buildGlossary();
+  animateCounters();
+  initProgressBars();
+  setTimeout(() => {
+    initCharts();
+    initLabCharts();
+  }, 300);
+});
+
+// ==================== NAVIGATION ====================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('section-' + id);
+  if (target) { target.classList.add('active'); }
+  currentSection = id;
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'"));
+  });
+  document.querySelectorAll('.mobile-tab').forEach(t => {
+    t.classList.toggle('active', t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'"));
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateAudioText(id);
+  setTimeout(() => { animateCounters(); initProgressBars(); }, 100);
+  setTimeout(() => { initCharts(); }, 200);
+}
+
+function toggleMenu() {
+  const m = document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==================== THEME ====================
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('delta_theme', currentTheme);
+  applyTheme(currentTheme);
+}
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  // Restore saved opacity for this theme
+  const saved = localStorage.getItem('bg_opacity_' + theme);
+  const defaultVal = theme === 'dark' ? 15 : 10;
+  const val = saved !== null ? parseInt(saved) : defaultVal;
+  const slider = document.getElementById('bgOpacitySlider');
+  if (slider) slider.value = val;
+  document.documentElement.style.setProperty('--bg-img-opacity', (val / 100).toFixed(2));
+}
+function setBgOpacity(val) {
+  document.documentElement.style.setProperty('--bg-img-opacity', (val / 100).toFixed(2));
+  localStorage.setItem('bg_opacity_' + currentTheme, val);
+}
+
+// ==================== LANGUAGE ====================
+function toggleLang() {
+  currentLang = currentLang === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('delta_lang', currentLang);
+  applyLang(currentLang);
+}
+function applyLang(lang) {
+  const btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中';
+  document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+    const txt = lang === 'zh' ? el.getAttribute('data-zh') : el.getAttribute('data-en');
+    if (txt !== null) {
+      if (el.tagName === 'INPUT') el.placeholder = txt;
+      else el.innerHTML = txt;
+    }
+  });
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  updateAudioText(currentSection);
+  // rebuild dynamic content for lang
+  buildPestel();
+  buildGlossary();
+  buildTeam();
+}
+
+// ==================== AUDIO (Cross-Browser) ====================
+const audioTexts = {
+  hero: { zh: '歡迎來到台達電子企業分析報告。台達電子是全球領先的電源管理與智慧能源解決方案供應商，成立於1971年，致力於以創新科技推動全球永續發展。', en: 'Welcome to the Delta Electronics Corporate Analysis Report. Delta Electronics is a global leader in power management and smart energy solutions, founded in 1971 and dedicated to advancing global sustainability through innovative technology.' },
+  team: { zh: '這是我們的研究團隊介紹。六位成員分別負責專案領導、財務分析、產業研究、ESG研究、技術策略及網頁開發。', en: 'This is our research team introduction. Six members are responsible for project leadership, financial analysis, industry research, ESG research, technology strategy, and web development respectively.' },
+  exec: { zh: '台達電子執行摘要。台達電子是全球電源管理領域的領導者，以環保節能為企業使命，積極布局AI數據中心、電動車充電、智慧製造等高成長市場。', en: 'Delta Electronics Executive Summary. Delta is a global leader in power management with an environmental mission, actively positioning in high-growth markets including AI data centers, EV charging, and smart manufacturing.' },
+  pestel: { zh: 'PESTEL總體環境分析。我們從政治、經濟、社會、技術、環境、法律六個維度，全面評估影響台達電子的外部環境機會與風險。', en: 'PESTEL Macro Environment Analysis. We comprehensively evaluate opportunities and risks affecting Delta Electronics from six dimensions: Political, Economic, Social, Technological, Environmental, and Legal.' },
+  opportunity: { zh: '商機分析。從B2B企業端與B2C消費端雙重視角，分析台達電子面臨的AI基礎設施、電動車、智慧製造等核心市場機會。', en: 'Business Opportunity Analysis. From both B2B enterprise and B2C consumer perspectives, we analyze Delta Electronics core market opportunities in AI infrastructure, electric vehicles, and smart manufacturing.' },
+  industry: { zh: '產業分析涵蓋供應鏈結構、產業生命週期定位與競合關係分析。台達電子目前處於產業成熟期，透過技術創新持續鞏固市場地位。', en: 'Industry analysis covers supply chain structure, industry life cycle positioning and co-opetition analysis. Delta Electronics is currently in the industry maturity stage, continuously consolidating market position through technological innovation.' },
+  firm: { zh: '企業分析包含財務表現、SWOT分析及KPI儀表板。台達電子展現穩健的財務成長，並在ESG指標上持續進步。', en: 'Firm analysis includes financial performance, SWOT analysis and KPI dashboard. Delta Electronics demonstrates steady financial growth and continuous ESG improvement.' },
+  vca: { zh: '價值鏈分析依照Porter的框架，分析台達電子的主要活動與支援活動，揭示其核心競爭優勢的來源。', en: "Value Chain Analysis follows Porter's framework to analyze Delta Electronics' primary and support activities, revealing the sources of its core competitive advantages." },
+  vna: { zh: '價值網分析運用PARTS模型，分析台達電子與客戶、供應商、競爭者、互補者之間的策略關係。', en: 'Value Net Analysis uses the PARTS model to analyze strategic relationships between Delta Electronics and its customers, suppliers, competitors, and complementors.' },
+  career: { zh: '學生職涯藍圖以台達電子財務職位為目標，運用PMCS-EMI框架規劃從在學到晉升主管的完整職涯路徑。', en: 'The Student Career Blueprint targets Delta Electronics finance positions, using the PMCS-EMI framework to plan a complete career path from student to management.' },
+  lab: { zh: '互動實驗室提供ESG情境模擬器、市場成長情境比較、競爭者儀表板與節能計算器，讓您親自探索台達電子的商業數據。', en: 'The Interactive Lab provides ESG scenario simulators, market growth scenario comparisons, competitor dashboards, and energy savings calculators for you to personally explore Delta Electronics business data.' },
+  sources: { zh: '資料來源包含台達電子官網、年度報告、ESG報告、IBISWorld產業報告、Bloomberg NEF及相關學術文獻。', en: 'Data sources include Delta Electronics official website, annual reports, ESG reports, IBISWorld industry reports, Bloomberg NEF, and related academic literature.' },
+  journey: { zh: '學習旅程記錄我們從選題、框架建立、數據收集、深度分析到視覺化呈現的完整研究歷程。', en: 'The Learning Journey documents our complete research process from topic selection, framework building, data collection, deep analysis to visual presentation.' },
+  glossary: { zh: '詞彙表收錄本報告中使用的商業策略與企業分析關鍵術語，提供中英文定義說明。', en: 'The Glossary contains key business strategy and corporate analysis terms used in this report, providing bilingual definitions.' },
+  conclusion: { zh: '結論：台達電子站在全球能源轉型與AI基礎設施建設兩大超級週期的交叉點，其節能即獲利的商業模式具有極強的長期競爭力。', en: 'Conclusion: Delta Electronics stands at the intersection of two mega-cycles—global energy transition and AI infrastructure. Its energy-savings-equals-profit business model has exceptional long-term competitiveness.' }
+};
+
+// ---- Cross-browser TTS engine ----
+var _tts = (function () {
+  var synth = window.speechSynthesis;
+  var _voices = [];
+  var _utterance = null;
+  var _keepAliveTimer = null;
+  var _isPaused = false;
+
+  // Voice cache — populated on first load or voiceschanged event
+  function _cacheVoices() { _voices = synth ? synth.getVoices() : []; }
+  if (synth) {
+    _cacheVoices();
+    // Firefox & some Android browsers fire voiceschanged asynchronously
+    if (typeof synth.addEventListener === 'function') {
+      synth.addEventListener('voiceschanged', _cacheVoices);
+    } else if (typeof synth.onvoiceschanged !== 'undefined') {
+      synth.onvoiceschanged = _cacheVoices;
+    }
+    // Polling fallback for browsers that never fire voiceschanged
+    var _pollCount = 0;
+    var _pollTimer = setInterval(function () {
+      _cacheVoices();
+      if (_voices.length > 0 || ++_pollCount > 30) clearInterval(_pollTimer);
+    }, 200);
+  }
+
+  function _pickVoice(lang) {
+    if (!_voices.length) _cacheVoices();
+    if (lang === 'zh') {
+      return _voices.find(function (v) { return v.name.includes('Yating') || v.name.includes('雅婷'); })
+          || _voices.find(function (v) { return v.lang === 'zh-TW'; })
+          || _voices.find(function (v) { return v.lang.startsWith('zh'); })
+          || null;
+    } else {
+      // Prefer known British male voices by name first
+      return _voices.find(function (v) { return /daniel|george|oliver|arthur|malcolm|gordon/i.test(v.name) && v.lang.startsWith('en-GB'); })
+          || _voices.find(function (v) { return v.lang === 'en-GB' && /male/i.test(v.name); })
+          || _voices.find(function (v) { return v.lang === 'en-GB'; })
+          || _voices.find(function (v) { return /daniel|george|oliver/i.test(v.name); })
+          || _voices.find(function (v) { return v.lang === 'en-US'; })
+          || _voices.find(function (v) { return v.lang.startsWith('en'); })
+          || null;
+    }
+  }
+
+  // Chrome Android bug: speechSynthesis silently pauses after ~15 s.
+  // Fix: cancel & re-queue a fresh utterance periodically to keep it alive.
+  function _startKeepAlive() {
+    _stopKeepAlive();
+    _keepAliveTimer = setInterval(function () {
+      if (!synth) return;
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        synth.resume();
+      }
+    }, 10000);
+  }
+  function _stopKeepAlive() {
+    if (_keepAliveTimer) { clearInterval(_keepAliveTimer); _keepAliveTimer = null; }
+  }
+
+  function _speak(text, lang, onEnd) {
+    if (!synth) { if (onEnd) onEnd(); return; }
+    synth.cancel();
+    _isPaused = false;
+
+    // Small delay so cancel() fully clears the queue (needed in Safari)
+    setTimeout(function () {
+      var utt = new SpeechSynthesisUtterance(text);
+      utt.lang  = lang === 'zh' ? 'zh-TW' : 'en-GB';
+      utt.rate  = 0.9;
+      utt.pitch = 1;
+
+      var voice = _pickVoice(lang);
+      if (voice) utt.voice = voice;
+
+      utt.onstart = function () { _startKeepAlive(); };
+      utt.onend   = function () { _stopKeepAlive(); if (onEnd) onEnd(); };
+      utt.onerror = function (e) {
+        // 'interrupted' is normal when stop() is called — ignore silently
+        if (e.error && e.error !== 'interrupted') console.warn('TTS error:', e.error);
+        _stopKeepAlive(); if (onEnd) onEnd();
+      };
+
+      _utterance = utt;
+      synth.speak(utt);
+    }, 50);
+  }
+
+  return {
+    supported: !!synth,
+    speak: _speak,
+    pause: function () {
+      if (!synth || !synth.speaking) return;
+      if (!_isPaused) { synth.pause(); _isPaused = true; _stopKeepAlive(); }
+      else { synth.resume(); _isPaused = false; _startKeepAlive(); }
+      return _isPaused; // true = now paused, false = now resumed
+    },
+    stop: function () {
+      if (synth) synth.cancel();
+      _isPaused = false;
+      _stopKeepAlive();
+    },
+    get speaking() { return !!(synth && synth.speaking); },
+    get paused()   { return _isPaused; }
+  };
+})();
+
+function updateAudioText(secId) {
+  var texts = audioTexts[secId];
+  if (!texts) return;
+  var txt = currentLang === 'zh' ? texts.zh : texts.en;
+  var el = document.getElementById('audioText');
+  if (el) el.textContent = txt;
+}
+function toggleAudio() {
+  audioPanel = !audioPanel;
+  document.getElementById('audio-panel').classList.toggle('open', audioPanel);
+  document.getElementById('audioToggle').classList.toggle('panel-open', audioPanel);
+  if (audioPanel) updateAudioText(currentSection);
+}
+function audioPlay() {
+  if (!_tts.supported) {
+    alert(currentLang === 'zh' ? '您的瀏覽器不支援語音合成。請嘗試 Chrome 或 Edge。' : 'Your browser does not support speech synthesis. Please try Chrome or Edge.');
+    return;
+  }
+  var texts = audioTexts[currentSection];
+  if (!texts) return;
+  var txt = currentLang === 'zh' ? texts.zh : texts.en;
+
+  var playBtn  = document.getElementById('playBtn');
+  var pauseBtn = document.getElementById('pauseBtn');
+  playBtn.classList.add('playing');
+  pauseBtn.textContent = currentLang === 'zh' ? '⏸ 暫停' : '⏸ Pause';
+
+  _tts.speak(txt, currentLang, function () {
+    playBtn.classList.remove('playing');
+    pauseBtn.textContent = currentLang === 'zh' ? '⏸ 暫停' : '⏸ Pause';
+  });
+}
+function audioPause() {
+  if (!_tts.supported) return;
+  var nowPaused = _tts.pause();
+  var pauseBtn = document.getElementById('pauseBtn');
+  var playBtn  = document.getElementById('playBtn');
+  if (nowPaused) {
+    pauseBtn.textContent = currentLang === 'zh' ? '▶ 繼續' : '▶ Resume';
+    playBtn.classList.remove('playing');
+  } else {
+    pauseBtn.textContent = currentLang === 'zh' ? '⏸ 暫停' : '⏸ Pause';
+    playBtn.classList.add('playing');
+  }
+}
+function audioStop() {
+  _tts.stop();
+  document.getElementById('playBtn').classList.remove('playing');
+  document.getElementById('pauseBtn').textContent = currentLang === 'zh' ? '⏸ 暫停' : '⏸ Pause';
+}
+
+// ==================== TEAM ====================
+const teamData = [
+  { pos: 'Team Leader', posZh: '組長', name: 'Anson', resp: 'Project Lead', respZh: '專案領導', yt: 'https://www.youtube.com/watch?v=6pt58iu14Ko', ytId: '6pt58iu14Ko', isShort: false, photo: 'https://drive.google.com/thumbnail?id=1tHmPM69enNfmz2lX-1qpuRfpfm4zuBsD&sz=w400', intro: 'Leading the team in strategic planning and ensuring cohesive project delivery.', introZh: '負責統籌專案策略規劃，確保團隊協作順暢及分析品質。' },
+  { pos: 'Member 1', posZh: '成員一', name: 'Khine Linn', resp: 'Financial Analyst', respZh: '財務分析師', yt: 'https://youtube.com/shorts/W954PeX4RBU', ytId: 'W954PeX4RBU', isShort: true, photo: 'https://drive.google.com/thumbnail?id=1YG-KtvRrmWm48tGfSt5v9SXDqzTr9AdV&sz=w400', intro: 'Specializing in financial modeling and ratio analysis of Delta Electronics.', introZh: '專注於台達電子的財務建模與比率分析，深度解讀財報數據。' },
+  { pos: 'Member 2', posZh: '成員二', name: 'Daniel', resp: 'Industry Researcher', respZh: '產業研究員', yt: 'https://youtube.com/shorts/-GKAQKjwhZo', ytId: '-GKAQKjwhZo', isShort: true, photo: 'https://drive.google.com/thumbnail?id=17C9DTWpoPeYlPPiAn8HwvIx1b7RezbJ3&sz=w400', intro: 'Deep-diving into electronics industry trends, supply chain, and competitive landscape.', introZh: '深入研究電子產業趨勢、供應鏈結構與競爭格局分析。' },
+  { pos: 'Member 3', posZh: '成員三', name: 'JD', resp: 'ESG Specialist', respZh: 'ESG專家', yt: 'https://www.youtube.com/watch?v=nzFWvhcSwxM', ytId: 'nzFWvhcSwxM', isShort: false, photo: 'https://drive.google.com/thumbnail?id=1QsjhADY3nluZXap3AeQd6UaGlxZL_sHv&sz=w400', intro: 'Analyzing Delta\'s sustainability strategy, ESG reporting, and environmental commitments.', introZh: '分析台達電子的永續發展策略、ESG報告揭露與環境承諾。' },
+  { pos: 'Member 4', posZh: '成員四', name: 'Varshitha', resp: 'Tech Strategy Researcher', respZh: '技術策略研究員', yt: 'https://www.youtube.com/shorts/yaT4kf0-ENw', ytId: 'yaT4kf0-ENw', isShort: true, photo: 'https://drive.google.com/thumbnail?id=1UEgxWxsh5WwXNoTgUcyTER4uCb8SkEsh&sz=w400', intro: 'Researching Delta\'s technology roadmap, AI infrastructure, and innovation strategy.', introZh: '研究台達電子的技術路線圖、AI基礎設施投入與創新策略。' },
+  { pos: 'Member 5', posZh: '成員五', name: 'UE', resp: 'Web Design Engineer', respZh: '網頁設計工程師', yt: 'https://youtube.com/shorts/MfvyQSGDuB0', ytId: 'MfvyQSGDuB0', isShort: true, photo: 'https://drive.google.com/thumbnail?id=1Zyd1e4BG-qdFZygpngs7I0M3hG9WKhqR&sz=w400', intro: 'Building the interactive bilingual analysis website with modern UX/UI design.', introZh: '負責建構互動式雙語分析網站，整合現代UX/UI設計美學。' }
+];
+function buildTeam() {
+  const grid = document.getElementById('teamGrid');
+  if (!grid) return;
+  grid.innerHTML = teamData.map((m, i) => {
+    const ytEmbed = m.isShort
+      ? `https://www.youtube.com/embed/${m.ytId}?autoplay=1&rel=0`
+      : `https://www.youtube.com/embed/${m.ytId}?autoplay=1&rel=0`;
+    const thumbUrl = `https://img.youtube.com/vi/${m.ytId}/hqdefault.jpg`;
+    const pos = currentLang === 'zh' ? m.posZh : m.pos;
+    const resp = currentLang === 'zh' ? m.respZh : m.resp;
+    const intro = currentLang === 'zh' ? m.introZh : m.intro;
+    const hintTxt = currentLang === 'zh' ? '↻ 點擊翻轉查看介紹影片' : '↻ Click to flip for intro video';
+    return `<div class="flip-card" onclick="this.classList.toggle('flipped')" tabindex="0" role="button" aria-label="${m.name}">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img class="member-photo" src="${m.photo}" alt="${m.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="member-photo-placeholder" style="display:none">👤</div>
+          <div class="member-info">
+            <div class="member-role">${pos}</div>
+            <div class="member-name">${m.name}</div>
+            <div class="member-resp">${resp}</div>
+            <div class="member-hint">↻ ${hintTxt}</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="yt-wrap" style="position:relative;cursor:pointer" onclick="event.stopPropagation();loadYT(this,'${ytEmbed}')">
+            <img src="${thumbUrl}" alt="YouTube preview" style="width:100%;height:100%;object-fit:cover;min-height:200px;display:block" onerror="this.style.background='#111'">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3)">
+              <div style="width:60px;height:60px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.5);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <svg viewBox="0 0 24 24" fill="white" width="26" height="26"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="member-back-info">
+            <h4>${m.name} — ${resp}</h4>
+            <p>${intro}</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function loadYT(wrapper, src) {
+  wrapper.innerHTML = `<iframe src="${src}" title="YouTube video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;min-height:200px"></iframe>`;
+}
+
+// ==================== PESTEL ====================
+const pestelData = [
+  { letter:'P', color:'#4A90D9', nameZh:'政治 Political', nameEn:'Political', items:[
+    { opp:true, zh:'政府推動綠能基礎設施補貼政策，為台達提供直接財政支持', en:'Government subsidies for green energy infrastructure provide direct financial support for Delta' },
+    { opp:true, zh:'台灣在半導體供應鏈的戰略地位強化，帶動相關電子設備需求', en:'Taiwan\'s strategic position in semiconductor supply chain strengthens, driving related electronics demand' },
+    { opp:false, zh:'地緣政治緊張（台海風險）可能造成供應鏈中斷與客戶信心下降', en:'Geopolitical tensions (Taiwan Strait risk) may cause supply chain disruption and reduced customer confidence' },
+    { opp:false, zh:'中美貿易戰可能影響關稅結構，增加進出口成本', en:'US-China trade war may affect tariff structures, increasing import/export costs' }
+  ]},
+  { letter:'E', color:'#50C878', nameZh:'經濟 Economic', nameEn:'Economic', items:[
+    { opp:true, zh:'全球AI基礎設施投資持續擴大，2024-2028年CAGR預估逾20%', en:'Global AI infrastructure investment expanding, 2024-2028 CAGR estimated over 20%' },
+    { opp:true, zh:'電動車市場滲透率快速提升，相關充電基礎設施商機龐大', en:'Rapid EV market penetration growth with massive charging infrastructure opportunities' },
+    { opp:false, zh:'新台幣匯率波動影響海外獲利回匯', en:'NTD exchange rate volatility affects overseas profit repatriation' },
+    { opp:false, zh:'通貨膨脹推升原材料與製造成本', en:'Inflation pushes up raw material and manufacturing costs' }
+  ]},
+  { letter:'S', color:'#FF8C42', nameZh:'社會 Social', nameEn:'Social', items:[
+    { opp:true, zh:'企業與消費者ESG意識提升，偏好綠色能源產品供應商', en:'Rising ESG awareness among businesses and consumers, preferring green energy product suppliers' },
+    { opp:true, zh:'遠距工作與數位化趨勢擴大UPS與數據中心設備需求', en:'Remote work and digitalization trends expand demand for UPS and data center equipment' },
+    { opp:false, zh:'全球工程人才短缺，電力電子領域招募難度增加', en:'Global engineering talent shortage increases recruitment difficulty in power electronics' },
+    { opp:false, zh:'消費者對台灣製造產品的認知在特定市場仍需加強', en:'Consumer awareness of Taiwan-made products still needs strengthening in certain markets' }
+  ]},
+  { letter:'T', color:'#9B59B6', nameZh:'技術 Technological', nameEn:'Technological', items:[
+    { opp:true, zh:'GaN/SiC功率器件技術突破，台達已具備先進製程優勢', en:'GaN/SiC power device technology breakthroughs, Delta already has advanced process advantages' },
+    { opp:true, zh:'AI驅動的預測性維護提升台達設備服務附加價值', en:'AI-driven predictive maintenance enhances added value of Delta equipment services' },
+    { opp:false, zh:'技術迭代速度加快，研發投入需持續提升以維持競爭力', en:'Accelerating technology iteration requires continuous R&D investment to maintain competitiveness' },
+    { opp:false, zh:'網路安全威脅對連網工業設備與基礎設施形成潛在風險', en:'Cybersecurity threats pose potential risks to connected industrial equipment and infrastructure' }
+  ]},
+  { letter:'E', color:'#2ECC71', nameZh:'環境 Environmental', nameEn:'Environmental', items:[
+    { opp:true, zh:'全球碳中和目標加速再生能源設備採購，台達直接受益', en:'Global carbon neutrality targets accelerate renewable energy equipment procurement, directly benefiting Delta' },
+    { opp:true, zh:'RE100企業增多，強化對高效能電力解決方案的需求', en:'Growing RE100 corporate membership strengthens demand for high-efficiency power solutions' },
+    { opp:false, zh:'氣候相關財務揭露要求增加，合規成本持續上升', en:'Increasing climate-related financial disclosure requirements, rising compliance costs' },
+    { opp:false, zh:'極端氣候事件可能影響製造設施與物流運輸', en:'Extreme climate events may impact manufacturing facilities and logistics' }
+  ]},
+  { letter:'L', color:'#E74C3C', nameZh:'法律 Legal', nameEn:'Legal', items:[
+    { opp:true, zh:'歐盟能效法規強制要求有利台達高效產品推廣', en:'EU energy efficiency regulations mandate products favorable for Delta\'s high-efficiency lineup' },
+    { opp:true, zh:'各國EV充電標準統一進程加速，有利台達標準化產品推廣', en:'EV charging standard unification accelerates, favoring Delta\'s standardized products' },
+    { opp:false, zh:'各地電子廢棄物法規趨嚴，增加產品設計與回收成本', en:'Stricter e-waste regulations increase product design and recycling costs' },
+    { opp:false, zh:'數據保護法規（GDPR等）對智慧設備服務形成合規壓力', en:'Data protection regulations (GDPR, etc.) create compliance pressure for smart device services' }
+  ]}
+];
+function buildPestel() {
+  const grid = document.getElementById('pestelGrid');
+  if (!grid) return;
+  grid.innerHTML = pestelData.map(p => `
+    <div class="pestel-card ${p.letter}">
+      <div class="pestel-letter">${p.letter}</div>
+      <div class="pestel-name">${currentLang === 'zh' ? p.nameZh : p.nameEn}</div>
+      <div class="pestel-items">
+        ${p.items.map(item => `<div class="pestel-item"><span class="pestel-item-tag ${item.opp?'tag-opp':'tag-risk'}">${item.opp?(currentLang==='zh'?'機會':'Opp'):(currentLang==='zh'?'風險':'Risk')}</span><p>${currentLang==='zh'?item.zh:item.en}</p></div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ==================== GLOSSARY ====================
+const glossaryData = [
+  { term:'PESTEL', zh:'一種分析企業總體外部環境的框架，包含政治(Political)、經濟(Economic)、社會(Social)、技術(Technological)、環境(Environmental)、法律(Legal)六個維度。', en:'A macro-environment analysis framework examining Political, Economic, Social, Technological, Environmental, and Legal factors affecting a business.' },
+  { term:'Value Chain Analysis (VCA)', zh:'Porter提出的企業活動分析框架，將企業活動分為主要活動（入站物流、生產、出站物流、行銷銷售、服務）與支援活動，以識別競爭優勢來源。', en:"Porter's framework analyzing company activities divided into primary activities (inbound logistics, operations, outbound logistics, marketing & sales, service) and support activities to identify sources of competitive advantage." },
+  { term:'Value Net Analysis (VNA)', zh:'Brandenburger與Nalebuff提出的競爭策略框架，運用PARTS模型（Players、Added Value、Rules、Tactics、Scope）分析企業與客戶、供應商、競爭者、互補者的關係。', en:"Brandenburger and Nalebuff's competitive strategy framework using the PARTS model (Players, Added Value, Rules, Tactics, Scope) to analyze relationships with customers, suppliers, competitors, and complementors." },
+  { term:'ESG', zh:'環境(Environmental)、社會(Social)、公司治理(Governance)的縮寫，用於衡量企業在永續發展方面的表現與策略。', en:'Abbreviation for Environmental, Social, and Governance, used to measure and evaluate a company\'s performance and strategy in sustainable development.' },
+  { term:'RE100', zh:'全球倡議計劃，要求會員企業承諾於特定期限內達成100%使用可再生能源。台達電子已承諾於2030年達成全球廠區100%使用再生能源。', en:'A global initiative requiring member companies to commit to 100% renewable energy by a specific deadline. Delta Electronics has committed to achieving 100% renewable energy across all global facilities by 2030.' },
+  { term:'GaN (Gallium Nitride)', zh:'氮化鎵，一種先進的功率半導體材料，相比傳統矽基元件具有更高效率、更小體積與更高頻率特性，是台達下一代電源技術的核心。', en:'A advanced power semiconductor material offering higher efficiency, smaller size, and higher frequency characteristics compared to traditional silicon-based components, a core of Delta\'s next-generation power technology.' },
+  { term:'CAGR', zh:'複合年均成長率(Compound Annual Growth Rate)，用於衡量特定時間段內的年均成長速率，是評估市場或企業成長的重要指標。', en:'Compound Annual Growth Rate, used to measure the annual growth rate over a specific time period, an important metric for evaluating market or corporate growth.' },
+  { term:'Co-opetition', zh:'競合策略，指企業同時與其他公司存在競爭與合作關係的策略模式，台達電子在某些市場與競爭者合作制定行業標準。', en:'A strategic pattern where companies simultaneously engage in competitive and cooperative relationships with other firms. Delta Electronics collaborates with competitors on industry standards in certain markets.' },
+  { term:'SWOT Analysis', zh:'分析企業內部優勢(Strengths)、劣勢(Weaknesses)及外部機會(Opportunities)、威脅(Threats)的策略分析框架。', en:'A strategic analysis framework examining internal Strengths and Weaknesses and external Opportunities and Threats facing an organization.' },
+  { term:'CDP (Carbon Disclosure Project)', zh:'全球最重要的企業碳揭露平台，台達電子獲得CDP A-List評級，代表其在氣候變遷應對方面達到最高標準。', en:"The world's most important corporate carbon disclosure platform. Delta Electronics has achieved CDP A-List rating, representing the highest standard in climate change response." },
+  { term:'Vertical Integration', zh:'垂直整合策略，指企業控制其供應鏈的多個環節，從原料採購到生產製造，甚至通路銷售，以提升效率並減少外部依賴。', en:'A strategy where companies control multiple stages of their supply chain, from raw material procurement to manufacturing and even distribution, to improve efficiency and reduce external dependency.' },
+  { term:'DJSI (Dow Jones Sustainability Index)', zh:'道瓊永續指數，是全球最重要的ESG投資標的指數之一，台達電子持續入選，代表其在永續發展方面達到全球頂尖企業標準。', en:'The Dow Jones Sustainability Index, one of the world\'s most important ESG investment indices. Delta Electronics has been continuously included, representing top-tier global standards in sustainable development.' }
+];
+function buildGlossary() {
+  const list = document.getElementById('glossaryList');
+  if (!list) return;
+  renderGlossary(glossaryData);
+}
+function renderGlossary(data) {
+  const list = document.getElementById('glossaryList');
+  if (!list) return;
+  list.innerHTML = data.map((g, i) => `
+    <div class="glossary-item" id="gItem${i}">
+      <div class="glossary-term" onclick="toggleGlossary(${i})" tabindex="0" role="button" aria-expanded="false">
+        <div style="display:flex;align-items:center;flex:1;gap:0">
+          <div class="letter">${g.term[0]}</div>
+          <span style="font-size:0.88rem">${g.term}</span>
+        </div>
+        <span class="glossary-chevron">▾</span>
+      </div>
+      <div class="glossary-def" id="gDef${i}">${currentLang === 'zh' ? g.zh : g.en}</div>
+    </div>`).join('');
+}
+function toggleGlossary(i) {
+  const item = document.getElementById('gItem'+i);
+  const def = document.getElementById('gDef'+i);
+  const isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+  def.classList.toggle('open', !isOpen);
+}
+function filterGlossary(query) {
+  const filtered = glossaryData.filter(g =>
+    g.term.toLowerCase().includes(query.toLowerCase()) ||
+    g.zh.toLowerCase().includes(query.toLowerCase()) ||
+    g.en.toLowerCase().includes(query.toLowerCase())
+  );
+  renderGlossary(filtered);
+}
+
+// ==================== COUNTERS ====================
+function animateCounters() {
+  document.querySelectorAll('.counter[data-target]').forEach(el => {
+    if (el.dataset.animated) return;
+    el.dataset.animated = '1';
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const start = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString();
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString();
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
+// ==================== PROGRESS BARS ====================
+function initProgressBars() {
+  document.querySelectorAll('.progress-fill[data-width]').forEach(bar => {
+    if (bar.style.width) return;
+    setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 200);
+  });
+}
+
+// ==================== CHARTS ====================
+function initCharts() {
+  // PESTEL Radar
+  if (!chartsInit.pestel && document.getElementById('pestelChart') && document.getElementById('section-pestel').classList.contains('active')) {
+    chartsInit.pestel = true;
+    const ctx = document.getElementById('pestelChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Political', 'Economic', 'Social', 'Technological', 'Environmental', 'Legal'],
+        datasets: [{
+          label: currentLang === 'zh' ? '機會程度' : 'Opportunity Level',
+          data: [72, 85, 65, 90, 88, 70],
+          backgroundColor: 'rgba(0,180,216,0.15)',
+          borderColor: 'rgba(0,180,216,0.8)',
+          pointBackgroundColor: '#00B4D8',
+          pointRadius: 4
+        }, {
+          label: currentLang === 'zh' ? '風險程度' : 'Risk Level',
+          data: [65, 55, 40, 50, 45, 55],
+          backgroundColor: 'rgba(231,76,60,0.1)',
+          borderColor: 'rgba(231,76,60,0.7)',
+          pointBackgroundColor: '#E74C3C',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { r: { ticks: { color: '#64748B', backdropColor: 'transparent' }, grid: { color: 'rgba(255,255,255,0.07)' }, pointLabels: { color: '#94A3B8', font: { size: 11 } }, suggestedMin: 0, suggestedMax: 100 } },
+        plugins: { legend: { labels: { color: '#94A3B8', font: { size: 11 } } } }
+      }
+    });
+  }
+  // Opportunity Chart
+  if (!chartsInit.opp && document.getElementById('opportunityChart') && document.getElementById('section-opportunity').classList.contains('active')) {
+    chartsInit.opp = true;
+    const ctx = document.getElementById('opportunityChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          currentLang === 'zh' ? 'AI數據中心' : 'AI Data Center',
+          currentLang === 'zh' ? 'EV充電' : 'EV Charging',
+          currentLang === 'zh' ? '智慧製造' : 'Smart Mfg',
+          currentLang === 'zh' ? '太陽能儲能' : 'Solar Storage',
+          currentLang === 'zh' ? '樓宇自動化' : 'Bldg Automation',
+          currentLang === 'zh' ? '電競電源' : 'Gaming PSU'
+        ],
+        datasets: [{
+          label: currentLang === 'zh' ? '市場規模 (十億美元)' : 'Market Size (Billion USD)',
+          data: [580, 150, 200, 120, 85, 40],
+          backgroundColor: ['rgba(0,180,216,0.7)', 'rgba(46,204,113,0.7)', 'rgba(155,89,182,0.7)', 'rgba(255,165,0,0.7)', 'rgba(52,152,219,0.7)', 'rgba(231,76,60,0.7)'],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94A3B8' } } },
+        scales: {
+          x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }
+  // Industry Chart
+  if (!chartsInit.industry && document.getElementById('industryChart') && document.getElementById('section-industry').classList.contains('active')) {
+    chartsInit.industry = true;
+    const ctx = document.getElementById('industryChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [
+          currentLang === 'zh' ? '電源管理' : 'Power Mgmt',
+          currentLang === 'zh' ? '工業自動化' : 'Industrial Auto',
+          currentLang === 'zh' ? '基礎設施' : 'Infrastructure',
+          currentLang === 'zh' ? '電動車' : 'EV',
+          currentLang === 'zh' ? '其他' : 'Others'
+        ],
+        datasets: [{ data: [40, 25, 18, 12, 5], backgroundColor: ['rgba(0,180,216,0.8)', 'rgba(0,86,168,0.8)', 'rgba(46,204,113,0.8)', 'rgba(255,107,53,0.8)', 'rgba(100,116,139,0.8)'], borderWidth: 2, borderColor: 'rgba(255,255,255,0.1)' }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { color: '#94A3B8', font: { size: 11 }, padding: 12 } },
+          title: { display: true, text: currentLang === 'zh' ? '台達電子收入結構分析' : 'Delta Revenue Mix Analysis', color: '#94A3B8' }
+        }
+      }
+    });
+  }
+  // Financial Chart
+  if (!chartsInit.financial && document.getElementById('financialChart') && document.getElementById('section-firm').classList.contains('active')) {
+    chartsInit.financial = true;
+    const ctx = document.getElementById('financialChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2019', '2020', '2021', '2022', '2023', '2024E'],
+        datasets: [{
+          label: currentLang === 'zh' ? '年度營收' : 'Annual Revenue',
+          data: [2230, 2650, 3050, 3590, 3820, 4100],
+          borderColor: 'rgba(0,180,216,0.9)',
+          backgroundColor: 'rgba(0,180,216,0.1)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#00B4D8',
+          pointRadius: 5
+        }, {
+          label: currentLang === 'zh' ? '稅後淨利' : 'Net Profit',
+          data: [180, 220, 290, 340, 365, 400],
+          borderColor: 'rgba(46,204,113,0.9)',
+          backgroundColor: 'rgba(46,204,113,0.05)',
+          fill: false,
+          tension: 0.4,
+          pointBackgroundColor: '#2ECC71',
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94A3B8' } } },
+        scales: {
+          x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }
+}
+
+// ==================== LAB CHARTS ====================
+let esgChart, scenChart, compChart;
+function initLabCharts() {
+  if (!document.getElementById('esgLabChart')) return;
+  // ESG Chart
+  const esgCtx = document.getElementById('esgLabChart').getContext('2d');
+  esgChart = new Chart(esgCtx, {
+    type: 'radar',
+    data: {
+      labels: ['RE Energy', 'Carbon Reduce', 'Waste Recycle', 'Water Intensity', 'Green Supply'],
+      datasets: [{ label: 'ESG Score', data: [60,45,72,55,68], backgroundColor: 'rgba(46,204,113,0.2)', borderColor: '#2ECC71', pointBackgroundColor: '#2ECC71', pointRadius: 4 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { r: { suggestedMin:0, suggestedMax:100, ticks: { color:'#64748B', backdropColor:'transparent' }, grid: { color:'rgba(255,255,255,0.07)' }, pointLabels: { color:'#94A3B8', font:{size:10} } } }, plugins: { legend: { display:false } } }
+  });
+  // Scenario Chart
+  const sCtx = document.getElementById('scenarioChart').getContext('2d');
+  scenChart = new Chart(sCtx, {
+    type: 'line',
+    data: {
+      labels: ['2024', '2025', '2026', '2027', '2028'],
+      datasets: [{ label: currentLang==='zh'?'基準':'Base', data: [3820,4100,4400,4720,5050], borderColor:'rgba(0,180,216,0.9)', backgroundColor:'rgba(0,180,216,0.1)', fill:true, tension:0.4, pointRadius:4 }]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#94A3B8',font:{size:10}}}}, scales:{x:{ticks:{color:'#94A3B8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#94A3B8'},grid:{color:'rgba(255,255,255,0.05)'}}} }
+  });
+  // Competitor Chart
+  const cCtx = document.getElementById('compChart').getContext('2d');
+  compChart = new Chart(cCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Delta', 'Schneider', 'ABB', 'Eaton', 'Siemens'],
+      datasets: [{ label: currentLang==='zh'?'營收 (十億美元)':'Revenue (Billion USD)', data: [10.8, 38, 29.5, 21.4, 62], backgroundColor: ['rgba(0,180,216,0.8)','rgba(74,144,217,0.6)','rgba(155,89,182,0.6)','rgba(255,107,53,0.6)','rgba(46,204,113,0.6)'], borderRadius:6 }]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#94A3B8',font:{size:10}}}}, scales:{x:{ticks:{color:'#94A3B8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#94A3B8'},grid:{color:'rgba(255,255,255,0.05)'}}} }
+  });
+}
+function updateESG(key, val) {
+  const map = { re:'reVal', carbon:'carbonVal', waste:'wasteVal' };
+  document.getElementById(map[key]).textContent = val + '%';
+  if (esgChart) {
+    const d = esgChart.data.datasets[0].data;
+    if (key==='re') d[0] = parseInt(val);
+    if (key==='carbon') d[1] = parseInt(val);
+    if (key==='waste') d[2] = parseInt(val);
+    esgChart.update();
+  }
+}
+function setScenario(type) {
+  ['base','bull','bear'].forEach(s => document.getElementById('scen-'+s).classList.toggle('active', s===type));
+  const scenarios = {
+    base: [3820,4100,4400,4720,5050],
+    bull: [3820,4400,5000,5800,6700],
+    bear: [3820,3900,4000,4050,4100]
+  };
+  const colors = { base:'rgba(0,180,216,0.9)', bull:'rgba(46,204,113,0.9)', bear:'rgba(231,76,60,0.9)' };
+  if (scenChart) {
+    scenChart.data.datasets[0].data = scenarios[type];
+    scenChart.data.datasets[0].borderColor = colors[type];
+    scenChart.data.datasets[0].backgroundColor = colors[type].replace('0.9','0.1');
+    scenChart.update();
+  }
+}
+function setMetric(metric) {
+  ['revenue','esg','rd'].forEach(m => {
+    const el = document.getElementById('comp-'+m);
+    if(el) el.classList.toggle('active', m===metric);
+  });
+  const metrics = {
+    revenue: { data:[10.8,38,29.5,21.4,62], label:currentLang==='zh'?'營收 (十億USD)':'Revenue (Billion USD)' },
+    esg: { data:[87,85,78,72,80], label:currentLang==='zh'?'ESG評分':'ESG Score' },
+    rd: { data:[3.5,5.2,4.1,3.8,6.0], label:currentLang==='zh'?'研發投入%':'R&D %' }
+  };
+  if (compChart) {
+    compChart.data.datasets[0].data = metrics[metric].data;
+    compChart.data.datasets[0].label = metrics[metric].label;
+    compChart.update();
+  }
+}
+function updateCalc(key, val) {
+  if (key==='size') document.getElementById('sizeVal').textContent = val + 'k';
+  if (key==='adopt') document.getElementById('adoptVal').textContent = val + '%';
+  const size = parseInt(document.querySelector('#section-lab input[oninput*="size"]').value);
+  const adopt = parseInt(document.querySelector('#section-lab input[oninput*="adopt"]').value);
+  const savings = Math.round(size * adopt * 7);
+  const co2 = Math.round(savings * 0.5);
+  document.getElementById('savingsDisplay').textContent = savings.toLocaleString() + ' MWh';
+  document.getElementById('savingsDisplay').nextElementSibling.textContent =
+    (currentLang === 'zh' ? '相當於減少 ' : 'Equivalent to reducing ') + co2.toLocaleString() + (currentLang === 'zh' ? ' 公噸CO₂排放' : ' tonnes CO₂ emissions');
+}
+
+// ==================== GEMINI API INTEGRATION ====================
+const apiKey = "AQ.Ab8RN6JgB0PMWaHyO6PJmdna_hLYfSJwwbj8spUuRrKPKSMumA"; // Will be injected by the environment
+
+async function callGemini(prompt) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  const payload = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.7 }
+  };
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      const errBody = await response.json().catch(() => ({}));
+      const msg = errBody?.error?.message || response.statusText;
+      throw new Error(`HTTP ${response.status}: ${msg}`);
+    }
+    const data = await response.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No content generated.";
+  } catch (error) {
+    console.error("Gemini API Error:", error.message);
+    return currentLang === 'zh'
+      ? `⚠️ AI 服務錯誤：${error.message}`
+      : `⚠️ AI service error: ${error.message}`;
+  }
+}
+
+async function generateCareerStrategy() {
+  const major = document.getElementById('aiMajorInput').value.trim();
+  const role = document.getElementById('aiRoleInput').value.trim();
+  const out = document.getElementById('aiCareerOutput');
+  const btn = document.getElementById('aiCareerBtn');
+  const btnTextSpan = document.getElementById('aiCareerBtnText');
+
+  if (!major || !role) {
+    out.innerHTML = `<p style="color:var(--accent)">${currentLang === 'zh' ? '⚠️ 請填寫科系與夢想職位！' : '⚠️ Please fill in both major and dream role!'}</p>`;
+    out.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  const originalText = btnTextSpan.innerHTML;
+  btnTextSpan.innerHTML = `<span class="loading-spinner" style="margin-right:8px; display:inline-block; vertical-align:middle;"></span>${currentLang === 'zh' ? 'AI 思考中...' : 'AI Thinking...'}`;
+  out.style.display = 'none';
+
+  const prompt = `You are an expert HR strategist for Delta Electronics. A university student majoring in "${major}" wants to pursue a career as a "${role}" at Delta.
+  Create a concise, personalized 3-step career roadmap for them. Connect their specific major directly to Delta's key business pillars (like ESG, automation, energy, or AI data centers).
+  Format the response using clean HTML ONLY (use <h4>, <ul>, <li>, and <strong> tags). Do NOT wrap your output in \`\`\`html blocks.
+  Reply entirely in ${currentLang === 'zh' ? 'Traditional Chinese (zh-TW)' : 'English'}.`;
+
+  const response = await callGemini(prompt);
+  out.innerHTML = response.replace(/```html|```/g, '');
+  out.style.display = 'block';
+  
+  btn.disabled = false;
+  btnTextSpan.innerHTML = originalText;
+}
+
+async function simulateMarketShock() {
+  const shock = document.getElementById('aiShockInput').value.trim();
+  const out = document.getElementById('aiShockOutput');
+  const btn = document.getElementById('aiShockBtn');
+  const btnTextSpan = document.getElementById('aiShockBtnText');
+
+  if (!shock) {
+    out.innerHTML = `<p style="color:var(--accent)">${currentLang === 'zh' ? '⚠️ 請描述一個市場事件！' : '⚠️ Please describe a market event!'}</p>`;
+    out.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  const originalText = btnTextSpan.innerHTML;
+  btnTextSpan.innerHTML = `<span class="loading-spinner" style="margin-right:8px; display:inline-block; vertical-align:middle;"></span>${currentLang === 'zh' ? '分析中...' : 'Analyzing...'}`;
+  out.style.display = 'none';
+
+  const prompt = `You are a top-tier strategy consultant evaluating Delta Electronics. A user has presented the following market shock/event: "${shock}".
+  Provide a quick consultant analysis on how this impacts Delta.
+  Include:
+  1. A short qualitative analysis (max 2 paragraphs).
+  2. "Strategic Responses" (3 bullet points on what Delta should do).
+  Format the response using clean HTML ONLY (use <h4>, <p>, <ul>, <li>, and <strong> tags). Do NOT wrap your output in \`\`\`html blocks.
+  Reply entirely in ${currentLang === 'zh' ? 'Traditional Chinese (zh-TW)' : 'English'}.`;
+
+  const response = await callGemini(prompt);
+  out.innerHTML = response.replace(/```html|```/g, '');
+  out.style.display = 'block';
+  
+  btn.disabled = false;
+  btnTextSpan.innerHTML = originalText;
+}
+</script>
+</body>
+</html>
