@@ -1144,6 +1144,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24p
 </footer>
 
 <script>
+  const API_KEY = "AIzaSyAlqBN5OlN9zkyoVvgJy9N1WnmC0pBGl4M";
+  // Your fetch request code goes here
+</script>
+<script>
 // ==================== STATE ====================
 let currentLang = localStorage.getItem('delta_lang') || 'zh';
 let currentTheme = localStorage.getItem('delta_theme') || 'dark';
@@ -1825,10 +1829,9 @@ function updateCalc(key, val) {
 }
 
 // ==================== GEMINI API INTEGRATION ====================
-const apiKey = "AIzaSyAlqBN5OlN9zkyoVvgJy9N1WnmC0pBGl4M"; // Will be injected by the environment
 
 async function callGemini(prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
   const payload = {
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: { temperature: 0.7 }
