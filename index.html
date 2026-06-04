@@ -798,20 +798,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24p
     <div class="card" style="border-color:var(--accent)"><h4 style="font-weight:700;color:var(--accent);margin-bottom:8px;font-size:0.9rem" data-zh="⭐ CSA-PMCS-EMI框架" data-en="⭐ CSA-PMCS-EMI Framework">⭐ CSA-PMCS-EMI框架</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:4px"><li style="font-size:0.75rem;color:var(--text2)" data-zh="P = Position 定位自我優勢" data-en="P = Position your strengths">P = Position 定位自我優勢</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="M = Market 市場機會識別" data-en="M = Market opportunity identification">M = Market 市場機會識別</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="C = Capability 能力發展" data-en="C = Capability development">C = Capability 能力發展</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="S = Strategy 行動策略" data-en="S = Strategy action plan">S = Strategy 行動策略</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="E = Execute 執行落地" data-en="E = Execute action">E = Execute 執行落地</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="M = Monitor 持續監測" data-en="M = Monitor progress">M = Monitor 持續監測</li><li style="font-size:0.75rem;color:var(--text2)" data-zh="I = Iterate 持續迭代" data-en="I = Iterate continuously">I = Iterate 持續迭代</li></ul></div>
   </div>
 
-  <div class="ai-box">
-    <h4 style="color:var(--neon);margin-bottom:12px;display:flex;align-items:center;gap:8px">✨ <span data-zh="AI 專屬職涯策略生成器" data-en="AI Personalized Career Strategist">AI 專屬職涯策略生成器</span></h4>
-    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px" data-zh="利用 Gemini LLM，根據您的背景為您量身打造進入台達電子的專屬準備策略。" data-en="Leverage Gemini LLM to tailor a personalized preparation strategy for joining Delta Electronics based on your background.">利用 Gemini LLM，根據您的背景為您量身打造進入台達電子的專屬準備策略。</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
-      <input type="text" id="aiMajorInput" class="ai-input" style="flex:1;min-width:200px;margin-bottom:0" placeholder="e.g., 電機工程 / Electrical Engineering" data-zh="科系 e.g., 電機工程" data-en="Major e.g., Electrical Engineering">
-      <input type="text" id="aiRoleInput" class="ai-input" style="flex:1;min-width:200px;margin-bottom:0" placeholder="e.g., 研發工程師 / R&D Engineer" data-zh="夢想職位 e.g., 研發工程師" data-en="Dream Role e.g., R&D Engineer">
-    </div>
-    <button class="ai-btn" id="aiCareerBtn" onclick="generateCareerStrategy()">
-      <span>✨</span>
-      <span id="aiCareerBtnText" data-zh="生成策略" data-en="Generate Strategy">生成策略</span>
-    </button>
-    <div id="aiCareerOutput" class="ai-output" style="display:none"></div>
-  </div>
-
   <h3 style="font-weight:700;margin-bottom:20px;font-size:1rem;color:var(--delta-cyan)" data-zh="職涯發展路徑時間軸" data-en="Career Development Timeline">職涯發展路徑時間軸</h3>
   <div class="career-timeline">
     <div class="career-step"><div class="cs-dot">🎓</div><div class="cs-content"><div class="cs-phase" data-zh="第一階段 | 在學期間 (現在)" data-en="Phase 1 | During Studies (Now)">第一階段 | 在學期間 (現在)</div><div class="cs-title" data-zh="能力厚植與品牌建立" data-en="Capability Building & Personal Branding">能力厚植與品牌建立</div><div class="cs-desc" data-zh="深化財務分析能力，積極參與案例競賽與學術研究。完成台達電子企業分析專案，建立業界知識。考取相關財金證照，積累英語商務溝通能力。" data-en="Deepen financial analysis capabilities, actively participate in case competitions and academic research. Complete Delta Electronics corporate analysis project to build industry knowledge. Obtain relevant finance certifications, accumulate English business communication skills.">深化財務分析能力，積極參與案例競賽與學術研究。完成台達電子企業分析專案，建立業界知識。考取相關財金證照，積累英語商務溝通能力。</div><div class="cs-skills"><span class="skill-tag">CFA Level 1</span><span class="skill-tag">Excel VBA</span><span class="skill-tag">案例分析</span><span class="skill-tag">ESG基礎</span></div></div></div>
@@ -867,17 +853,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24p
         <div id="savingsDisplay" style="font-size:2rem;font-weight:900;color:var(--neon);font-family:var(--font-mono)">3,500 MWh</div>
         <div style="font-size:0.7rem;color:var(--text3);margin-top:4px" data-zh="相當於減少 1,750 公噸CO₂排放" data-en="Equivalent to reducing 1,750 tonnes CO₂ emissions">相當於減少 1,750 公噸CO₂排放</div>
       </div>
-    </div>
-
-    <div class="lab-card ai-box" style="grid-column: 1 / -1; margin-top: 0;">
-      <div class="lab-title">✨ <span data-zh="AI 突發市場事件模擬器" data-en="AI Market Shock Simulator">AI 突發市場事件模擬器</span></div>
-      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px" data-zh="輸入一個假想的市場突發事件，Gemini AI 將扮演高階策略顧問，為您分析該事件對台達電子的潛在衝擊與策略應對。" data-en="Enter a hypothetical market event, and Gemini AI will act as an executive strategy consultant to analyze the potential impact and response strategies for Delta Electronics.">輸入一個假想的市場突發事件，Gemini AI 將扮演高階策略顧問，為您分析該事件對台達電子的潛在衝擊與策略應對。</p>
-      <textarea id="aiShockInput" class="ai-input" rows="2" placeholder="e.g., 全球銅價飆漲3倍... / e.g., Global copper prices triple..." data-zh="描述一個市場事件..." data-en="Describe a market event..."></textarea>
-      <button class="ai-btn" id="aiShockBtn" onclick="simulateMarketShock()">
-        <span>✨</span>
-        <span id="aiShockBtnText" data-zh="進行顧問分析" data-en="Analyze Impact">進行顧問分析</span>
-      </button>
-      <div id="aiShockOutput" class="ai-output" style="display:none; background:rgba(0,0,0,0.2);"></div>
     </div>
 
   </div>
@@ -1822,100 +1797,6 @@ function updateCalc(key, val) {
   document.getElementById('savingsDisplay').textContent = savings.toLocaleString() + ' MWh';
   document.getElementById('savingsDisplay').nextElementSibling.textContent =
     (currentLang === 'zh' ? '相當於減少 ' : 'Equivalent to reducing ') + co2.toLocaleString() + (currentLang === 'zh' ? ' 公噸CO₂排放' : ' tonnes CO₂ emissions');
-}
-
-// ==================== GEMINI API INTEGRATION ====================
-const apiKey = "AQ.Ab8RN6Ks4hs4n6mUeGpW5A5ZyN-UhNTqxRE3sgNdQgBA7nw2TA"; // Will be injected by the environment
-
-async function callGemini(prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-  const payload = {
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.7 }
-  };
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (!response.ok) {
-      const errBody = await response.json().catch(() => ({}));
-      const msg = errBody?.error?.message || response.statusText;
-      throw new Error(`HTTP ${response.status}: ${msg}`);
-    }
-    const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No content generated.";
-  } catch (error) {
-    console.error("Gemini API Error:", error.message);
-    return currentLang === 'zh'
-      ? `⚠️ AI 服務錯誤：${error.message}`
-      : `⚠️ AI service error: ${error.message}`;
-  }
-}
-
-async function generateCareerStrategy() {
-  const major = document.getElementById('aiMajorInput').value.trim();
-  const role = document.getElementById('aiRoleInput').value.trim();
-  const out = document.getElementById('aiCareerOutput');
-  const btn = document.getElementById('aiCareerBtn');
-  const btnTextSpan = document.getElementById('aiCareerBtnText');
-
-  if (!major || !role) {
-    out.innerHTML = `<p style="color:var(--accent)">${currentLang === 'zh' ? '⚠️ 請填寫科系與夢想職位！' : '⚠️ Please fill in both major and dream role!'}</p>`;
-    out.style.display = 'block';
-    return;
-  }
-
-  btn.disabled = true;
-  const originalText = btnTextSpan.innerHTML;
-  btnTextSpan.innerHTML = `<span class="loading-spinner" style="margin-right:8px; display:inline-block; vertical-align:middle;"></span>${currentLang === 'zh' ? 'AI 思考中...' : 'AI Thinking...'}`;
-  out.style.display = 'none';
-
-  const prompt = `You are an expert HR strategist for Delta Electronics. A university student majoring in "${major}" wants to pursue a career as a "${role}" at Delta.
-  Create a concise, personalized 3-step career roadmap for them. Connect their specific major directly to Delta's key business pillars (like ESG, automation, energy, or AI data centers).
-  Format the response using clean HTML ONLY (use <h4>, <ul>, <li>, and <strong> tags). Do NOT wrap your output in \`\`\`html blocks.
-  Reply entirely in ${currentLang === 'zh' ? 'Traditional Chinese (zh-TW)' : 'English'}.`;
-
-  const response = await callGemini(prompt);
-  out.innerHTML = response.replace(/```html|```/g, '');
-  out.style.display = 'block';
-  
-  btn.disabled = false;
-  btnTextSpan.innerHTML = originalText;
-}
-
-async function simulateMarketShock() {
-  const shock = document.getElementById('aiShockInput').value.trim();
-  const out = document.getElementById('aiShockOutput');
-  const btn = document.getElementById('aiShockBtn');
-  const btnTextSpan = document.getElementById('aiShockBtnText');
-
-  if (!shock) {
-    out.innerHTML = `<p style="color:var(--accent)">${currentLang === 'zh' ? '⚠️ 請描述一個市場事件！' : '⚠️ Please describe a market event!'}</p>`;
-    out.style.display = 'block';
-    return;
-  }
-
-  btn.disabled = true;
-  const originalText = btnTextSpan.innerHTML;
-  btnTextSpan.innerHTML = `<span class="loading-spinner" style="margin-right:8px; display:inline-block; vertical-align:middle;"></span>${currentLang === 'zh' ? '分析中...' : 'Analyzing...'}`;
-  out.style.display = 'none';
-
-  const prompt = `You are a top-tier strategy consultant evaluating Delta Electronics. A user has presented the following market shock/event: "${shock}".
-  Provide a quick consultant analysis on how this impacts Delta.
-  Include:
-  1. A short qualitative analysis (max 2 paragraphs).
-  2. "Strategic Responses" (3 bullet points on what Delta should do).
-  Format the response using clean HTML ONLY (use <h4>, <p>, <ul>, <li>, and <strong> tags). Do NOT wrap your output in \`\`\`html blocks.
-  Reply entirely in ${currentLang === 'zh' ? 'Traditional Chinese (zh-TW)' : 'English'}.`;
-
-  const response = await callGemini(prompt);
-  out.innerHTML = response.replace(/```html|```/g, '');
-  out.style.display = 'block';
-  
-  btn.disabled = false;
-  btnTextSpan.innerHTML = originalText;
 }
 </script>
 </body>
